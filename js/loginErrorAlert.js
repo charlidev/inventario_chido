@@ -1,0 +1,1 @@
+swal("¡Usuario o contraseña incorrectos!", "Ingrese correctamente sus datos.");
