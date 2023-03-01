@@ -21,32 +21,43 @@
                 </div>
                     <div class="col-md-6 right">
                         <form class="needs-validation" method="post" novalidate>
-                        <div class="input-box">
-                            <header>¡Bienvenido (a)!</header>
-                            <div class="input-field">
-                                <input type="text" class="input" id="user" required name="usuario" autocomplete="off">
-                                <label for="user">Usuario</label>
-                                
-                                <div class="invalid-feedback">Campo necesario.*</div>
-                            </div>
+                            <div class="input-box">
+                                <header>¡Bienvenido (a)!</header>
+                                <div class="input-field">
+                                    <input type="text" class="input" id="user" required name="usuario" autocomplete="off">
+                                    <label for="user">Usuario</label>
+                                    
+                                    <div class="invalid-feedback">Campo necesario.*</div>
+                                </div>
 
-                            <div class="input-field">
-                                <input type="password" class="input" id="pass" required name="contraseña">
-                                <label for="pass">Contraseña</label>
-                                <div class="invalid-feedback">Campo necesario.*</div>
-                            </div>
+                                <div class="input-field">
+                                    <input type="password" class="input" id="pass" required name="contraseña">
+                                    <label for="pass">Contraseña</label>
+                                    <div class="invalid-feedback">Campo necesario.*</div>
+                                </div>
 
-                            <br>
-                            <div class="input-field">
-                                <button type="button" class="submit" name="btnIngresar" onclick="login()">Iniciar Sesión</button>
+                                <br>
+                                <div class="input-field">
+                                    <button type="button" class="submit" name="btnIngresar" onclick="login()">Iniciar Sesión</button>
+                                </div>
                             </div>
-                        </div>
-                    <!-- </form> -->
+                        </form>
                 </div>
             </div>
         </div>
     </div>
 
-    
+    <script>
+        $(document).ready(function() {
+            // Capturamos el evento "keydown" en los inputs de usuario y contraseña
+            $("#user, #pass").keydown(function(event) {
+                // Si se presiona la tecla "Enter" (cuyo código es 13)
+                if (event.keyCode === 13) {
+                    // Ejecutamos la función "login()"
+                    login();
+                }
+            });
+        });
+    </script>
 </body>
 </html>
