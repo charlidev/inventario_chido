@@ -1,3 +1,12 @@
+<?php
+    session_start();
+    if(!isset($_SESSION['usuario']) || !isset($_SESSION['contraseña'])){
+        header('Location: index.html');
+        exit;
+    }
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -23,7 +32,7 @@
 </head>
 
 <body id="page-top">
-
+    
     <!-- Page Wrapper -->
     <div id="wrapper">
 
