@@ -1,8 +1,12 @@
 <?php
     session_start();
-    if(!isset($_SESSION['usuario']) || !isset($_SESSION['contraseña'])){
-        header('Location: index.html');
-        exit;
+    $usuario = $_SESSION['username'];
+    
+    if(!isset($usuario)){
+        header('Location: index.php');
+    }else{
+        echo "<h1>Bienvenido $usuario </h1>";
+        echo "<a href='php/logout.php'>Salir</a>";
     }
 ?>
 

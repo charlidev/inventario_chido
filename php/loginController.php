@@ -1,7 +1,7 @@
 <?php
-    session_start();
     //se hace la conexión a la BD
     require 'db_connection.php';
+    session_start();
     //Datos que llegan del front end por el metodo post
     $usuario= $_POST['usuario'];
     $contraseña= $_POST['contraseña'];
@@ -15,8 +15,6 @@
     }
     else{
         // Ambos campos están completos, continua con la lógica de tu programa
-        // Aquí puedes agregar tu código para verificar si el usuario y la contraseña son válidos
-
         $tsql = "SELECT * FROM tblLogin WHERE Usuario = ? AND Contrasena = ?";
         $params = array($_POST['usuario'], $_POST['contraseña']);
 
@@ -24,9 +22,7 @@
 
         if($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)){ //validamos si se encontro el registro
             //guardar información del usuario en la sesión
-            $_SESSION['usuario'] = $usuario;
-            $_SESSION['contraseña'] = $contraseña;
-
+            $_SESSION['username'] = $usuario;
             $datos['status']=1;   
         }
         else{ //accion si no se encuentra el registro
