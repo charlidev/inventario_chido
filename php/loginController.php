@@ -27,7 +27,7 @@
         }
         else{ //accion si no se encuentra el registro
             $datos['status']=0;
-            $datos['msg']="Usuario o contraseña no valida";
+            $datos['msg']="Usuario o contraseña no válida.";
         }
         sqlsrv_close($connection);
         //convertir array a json

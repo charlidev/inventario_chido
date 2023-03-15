@@ -26,14 +26,11 @@
                                 <div class="input-field">
                                     <input type="text" class="input" id="user" required name="usuario" autocomplete="off">
                                     <label for="user">Usuario</label>
-                                    
-                                    <div class="invalid-feedback">Campo necesario.*</div>
                                 </div>
 
                                 <div class="input-field">
                                     <input type="password" class="input" id="pass" required name="contraseña">
                                     <label for="pass">Contraseña</label>
-                                    <div class="invalid-feedback">Campo necesario.*</div>
                                 </div>
 
                                 <br>
