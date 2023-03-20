@@ -23,7 +23,7 @@
         if($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)){ //validamos si se encontro el registro
             //guardar información del usuario en la sesión
             $_SESSION['username'] = $usuario;
-            $datos['status']=1;   
+            $datos['status']=1;
         }
         else{ //accion si no se encuentra el registro
             $datos['status']=0;

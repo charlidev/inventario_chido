@@ -21,7 +21,7 @@ function login() {
                 $('#pass').val('');
             }
             else{
-                window.location.replace("dashboard.php");
+                window.location.replace("home.php");
             }
         }
     });
