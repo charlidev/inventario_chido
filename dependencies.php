@@ -99,19 +99,41 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Agregar Dependencia</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
             <div class="modal-body">
-                ...
+                <form method="POST" id="formAgregarDependencia">
+                    <div>
+                        <label for="Nombre">Nombre de la dependencia</label>
+                        <input type="text" name="nombre" id="nombre" class="form-control">
+                        <br>
+
+                        <label for="Nombre">Estatus de la dependencia</label>
+
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <input type="radio" name="radio" id="radio1" value="1">
+                                <label for="radio">Activa</label>
+                            </div>
+                            <div>
+                                <input type="radio" name="radio" id="radio2" value="2">
+                                <label for="radio">Inactiva</label>
+                            </div>
+                            <div> </div>
+                        </div>
+
+                    </div>
+                </form>
             </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
+                    <input type="submit" name="action" id="action" class="btn btn-success" value="Agregar">
+                    
                 </div>
             </div>
         </div>
     </div>
+
 </body>

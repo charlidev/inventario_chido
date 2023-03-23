@@ -4,7 +4,7 @@
         <footer class="sticky-footer bg-white">
             <div class="container my-auto">
                 <div class="copyright text-center my-auto">
-                <span>Todos los derechos reservados. &copy; Hecho con <i class="fa fa-heart"></i> por Fábrica de Software.</span>
+                <span>Todos los derechos reservados. &copy; Hecho con <i class="fa fa-heart"></i> by Fábrica de Software.</span>
                 </div>
             </div>
         </footer>
