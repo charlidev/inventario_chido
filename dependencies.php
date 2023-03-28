@@ -7,6 +7,13 @@
     }
 ?>
 
+<?php 
+    require 'php/db_connection.php';
+    $conexion = $connection;
+    $consulta = "SELECT idDependencia, Nombre, Estatus FROM tblDependencia";
+    $resultado = sqlsrv_query($conexion, $consulta);    
+?>
+
 <?php require('header.php')?>
 
 <body id="page-top">
@@ -49,27 +56,25 @@
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
-                                            <th>Dependencia</th>
-                                            <th>Activa</th>
-                                            <th>Acciones</th>
+                                            <!-- <th class="w-25">id</th> -->
+                                            <th class="w-50">Dependencia</th>
+                                            <th class="w-25">Estatus</th>
+                                            <th class="w-25">Acciones</th>
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        <?php
+                                            while ($row = sqlsrv_fetch_array($resultado, SQLSRV_FETCH_ASSOC)) {
+                                        ?>
                                         <tr>
-                                            <td>Tiger Nixon</td>
-                                            <td>System Architect</td>
-                                            <td>Edinburgh</td>
+                                            <!-- <td><?php echo $row['idDependencia'] ?></td> -->
+                                            <td><?php echo $row['Nombre'] ?></td>
+                                            <td><?php echo $row['Estatus'] ?></td>
+                                            <td></td>
                                         </tr>
-                                        <tr>
-                                            <td>Garrett Winters</td>
-                                            <td>Accountant</td>
-                                            <td>Tokyo</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Ashton Cox</td>
-                                            <td>Junior Technical Author</td>
-                                            <td>San Francisco</td>
-                                        </tr>
+                                        <?php
+                                            }
+                                        ?>
                                     </tbody>
                                 </table>
                             </div>
@@ -116,11 +121,11 @@
                         <div class="d-flex justify-content-between">
                             <div>
                                 <input type="radio" name="radio" id="radio1" value="1">
-                                <label for="radio">Activa</label>
+                                <label for="radio1">Activa</label>
                             </div>
                             <div>
                                 <input type="radio" name="radio" id="radio2" value="2">
-                                <label for="radio">Inactiva</label>
+                                <label for="radio2">Inactiva</label>
                             </div>
                             <div> </div>
                         </div>
