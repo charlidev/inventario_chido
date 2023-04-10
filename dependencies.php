@@ -7,13 +7,6 @@
     }
 ?>
 
-<?php 
-    require 'php/db_connection.php';
-    $conexion = $connection;
-    $consulta = "SELECT idDependencia, Nombre, Estatus FROM tblDependencia";
-    $resultado = sqlsrv_query($conexion, $consulta);    
-?>
-
 <?php require('header.php')?>
 
 <body id="page-top">
@@ -64,13 +57,26 @@
                                     </thead>
                                     <tbody>
                                         <?php
-                                            while ($row = sqlsrv_fetch_array($resultado, SQLSRV_FETCH_ASSOC)) {
+                                        require 'php/db_connection.php';
+                                        $conexion = $connection;
+                                        $consulta = "SELECT idDependencia, Nombre, Estatus FROM tblDependencia";
+                                        $resultado = sqlsrv_query($conexion, $consulta);
+                                        while ($row = sqlsrv_fetch_array($resultado, SQLSRV_FETCH_ASSOC)) {
                                         ?>
                                         <tr>
                                             <!-- <td><?php echo $row['idDependencia'] ?></td> -->
                                             <td><?php echo $row['Nombre'] ?></td>
                                             <td><?php echo $row['Estatus'] ?></td>
-                                            <td></td>
+                                            <td>
+                                                <div class="text-center">
+                                                    <div>
+                                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalEditarDependencia" id="btnAgregarDependencia">
+                                                        Editar
+                                                    </button>
+                                                        <button class="btn btn-danger btnBorrar">Borrar</button>
+                                                    </div>
+                                                </div>
+                                            </td>
                                         </tr>
                                         <?php
                                             }
@@ -99,7 +105,7 @@
     <!-- End of Page Wrapper -->
 
 
-    <!-- Aqui puede ir el codigo del modal -->
+    <!-- Codigo del modal de AGRAGAR DEPENDENCIA-->
     <div class="modal fade" id="modalAgregarDependencia" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -117,25 +123,46 @@
                         <br>
 
                         <label for="Nombre">Estatus de la dependencia</label>
-
-                        <div class="d-flex justify-content-between">
-                            <div>
-                                <input type="radio" name="radio" id="radio1" value="1">
-                                <label for="radio1">Activa</label>
-                            </div>
-                            <div>
-                                <input type="radio" name="radio" id="radio2" value="2">
-                                <label for="radio2">Inactiva</label>
-                            </div>
-                            <div> </div>
-                        </div>
-
+                        <input type="text" name="nombre" id="nombre" class="form-control">
+                        <br>
                     </div>
+                    
                 </form>
             </div>
                 <div class="modal-footer">
                     <input type="submit" name="action" id="action" class="btn btn-success" value="Agregar">
                     
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Codigo del modal de EDITAR DEPENDENCIA-->
+    <div class="modal fade" id="modalEditarDependencia" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Editar Dependencia</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            <div class="modal-body">
+                <form method="POST" id="formAgregarDependencia">
+                    <div>
+                        <label for="Nombre">Nombre de la dependencia</label>
+                        <input type="text" name="nombre" id="nombre" class="form-control">
+                        <br>
+
+                        <label for="Nombre">Estatus de la dependencia</label>
+                        <input type="text" name="nombre" id="nombre" class="form-control">
+                        <br>
+                    </div>
+                    
+                </form>
+            </div>
+                <div class="modal-footer">
+                    <input type="submit" name="action" id="action" class="btn btn-success" value="Guardar">
                 </div>
             </div>
         </div>

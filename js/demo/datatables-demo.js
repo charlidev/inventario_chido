@@ -20,6 +20,6 @@ $(document).ready(function() {
         titleAttr: 'Exportar archivo PDF',
         className: 'btn btn-danger'
       }
-    ],
+    ]
   });
 });
