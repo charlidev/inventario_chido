@@ -27,3 +27,35 @@ function login() {
     });
 }
 
+function agregarDependencia(){
+    
+    let data = {
+        'nombreDepen': $('#nombreDepen').val(),
+        'estatusDepen': $('#estatusDepen').val()
+    }
+
+    $.ajax({
+        type: "POST",
+        url: "php/agregarDependencia.php",
+        data: data,
+        dataType: "json",
+        success: function(data) {
+            if(data.status == 1){
+                swal({
+                    title: "Éxito",
+                    text: data.msg,
+                    icon: "success"
+                });
+                
+            }
+            else{
+                swal({
+                    title: "Error",
+                    text: data.msg,
+                    icon: "error"
+                });
+            }
+        }
+    });
+}
+

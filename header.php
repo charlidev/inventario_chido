@@ -21,6 +21,8 @@
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
     <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
     <link href="vendor/datatables/buttons.bootstrap4.min.css" rel="stylesheet">
+    <script src="./js/validateLoginInputs.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 </head>
 
@@ -46,11 +48,8 @@
 <script src="vendor/datatables/buttons.html5.min.js"></script>
 <script src="vendor/datatables/buttons.print.min.js"></script>
 
-
-
-
-
-
 <!-- Page level custom scripts -->
 <script src="js/demo/datatables-demo.js"></script>
+
+
 

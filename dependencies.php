@@ -120,18 +120,17 @@
                         
                         <div>
                             <label for="Nombre">Nombre de la dependencia</label>
-                            <input type="text" name="nombre" id="nombre" class="form-control">
+                            <input type="text" name="nombre" id="nombreDepen" class="form-control">
                             <br>
 
                             <label for="Nombre">Estatus de la dependencia</label>
-                            <input type="text" name="estatus" id="estatus" class="form-control">
+                            <input type="text" name="estatus" id="estatusDepen" class="form-control" >
                             <br>
                         </div>
                             
                     </div>
                         <div class="modal-footer">
-                            <input type="submit" class="btn btn-success" value="Agregar">
-                            
+                            <input type="button" class="btn btn-success" value="Agregar" onclick="agregarDependencia()">
                         </div>
                     </div>
                 </form>
@@ -169,48 +168,6 @@
         </div>
     </div>
 
-    <script>
-        $(document).on('submit', '#formAgregarDependencia', function(e){
-            e.preventDefault();
-            var formData = new FormData(this);
-            formData.append("guardar_depen", true);
-            $.ajax({
-                type:"POST",
-                url:"php/agregarDependencia.php",
-                data: formData,
-                processData: false,
-                contentType: false,
-                success: function(response){
-                    var res = JSON.parse(response);
-                    if(res.status == 0){
-                        swal({
-                            title: "Error",
-                            text: res.msg,
-                            icon: "error"
-                        });
-                    }else if(res.status == 1){
-                        swal({
-                            title: "Operación Exitosa!",
-                            text: res.msg,
-                            icon: "success"
-                        });
-                    }else if(res.status == 2){
-                        swal({
-                            title: "Error",
-                            text: res.msg,
-                            icon: "error"
-                        });
-                    }
-
-                }
-            });
-
-
-
-
-
-        });
-    </script>
 
 
 </body>

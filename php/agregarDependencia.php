@@ -1,34 +1,35 @@
 <?php
     require 'db_connection.php';
-    $con = $connection;
 
-    if(isset($_POST['guardar_depen'])){
+    $nombre= $_POST['nombreDepen'];
+    $status= $_POST['estatusDepen'];
 
-        $nombre = QUOTENAME($_POST['nombre'], "'");
-        $estatus = QUOTENAME($_POST['estatus'], "'");
-        
-        if($nombre == NULL || $estatus == NULL){
-            $response['status'] = 0;
-            $response['msg'] = 'Todos los campos son abligatorios.';
-            echo json_encode($response);
-            return false;
-        }else{
-    
-            $query = "INSERT INTO tblDependencia (Nombre, Estatus) VALUES ('$nombre', '$estatus')";
-            $stmt = sqlsrv_query($con, $query);
+    $datos=array();
 
-            if($stmt){
-                $response['status'] = 1;
-                $response['msg'] = 'Dependencia agregada correctamente!';
-                echo json_encode($response);
-                return false;
-            }else{
-                $response['status'] = 2;
-                $response['msg'] = 'Ocurrió un error.';
-                echo json_encode($response);
-                return false;
-            }
+    if(empty($_POST['nombreDepen']) || empty($_POST['estatusDepen'])){
+        // Uno o ambos campos están vacíos, muestra un mensaje de error
+        $response = array('status' => 0, 'msg' => 'Por favor, complete AMBOS campos.');
+        echo json_encode($response);
+    }
+    else{
+        // Ambos campos están completos, continua con la lógica de tu programa
+        $tsql = "INSERT INTO tblDependencia (Nombre, Estatus) VALUES (?, ?)";
+        $params = array($_POST['nombreDepen'], $_POST['estatusDepen']);
+
+        $stmt = sqlsrv_query($connection, $tsql, $params);
+
+        if($stmt){ //validamos si se encontro el registro
+            $datos['status']=1;
+            $datos['msg']="!Dependencia guardada!";
         }
+        else{ //accion si no se encuentra el registro
+            $datos['status']=0;
+            $datos['msg']="Ocurrió un problema.";
+        }
+        sqlsrv_close($connection);
+        //convertir array a json
+        $json=json_encode($datos);
+        echo $json;
     }
 
 ?>
