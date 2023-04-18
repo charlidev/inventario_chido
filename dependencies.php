@@ -115,25 +115,26 @@
                     <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-            <div class="modal-body">
-                <form method="POST" id="formAgregarDependencia">
-                    <div>
-                        <label for="Nombre">Nombre de la dependencia</label>
-                        <input type="text" name="nombre" id="nombre" class="form-control">
-                        <br>
+                <form id="formAgregarDependencia">
+                    <div class="modal-body">
+                        
+                        <div>
+                            <label for="Nombre">Nombre de la dependencia</label>
+                            <input type="text" name="nombre" id="nombre" class="form-control">
+                            <br>
 
-                        <label for="Nombre">Estatus de la dependencia</label>
-                        <input type="text" name="nombre" id="nombre" class="form-control">
-                        <br>
+                            <label for="Nombre">Estatus de la dependencia</label>
+                            <input type="text" name="estatus" id="estatus" class="form-control">
+                            <br>
+                        </div>
+                            
                     </div>
-                    
+                        <div class="modal-footer">
+                            <input type="submit" class="btn btn-success" value="Agregar">
+                            
+                        </div>
+                    </div>
                 </form>
-            </div>
-                <div class="modal-footer">
-                    <input type="submit" name="action" id="action" class="btn btn-success" value="Agregar">
-                    
-                </div>
-            </div>
         </div>
     </div>
 
@@ -167,5 +168,49 @@
             </div>
         </div>
     </div>
+
+    <script>
+        $(document).on('submit', '#formAgregarDependencia', function(e){
+            e.preventDefault();
+            var formData = new FormData(this);
+            formData.append("guardar_depen", true);
+            $.ajax({
+                type:"POST",
+                url:"php/agregarDependencia.php",
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function(response){
+                    var res = JSON.parse(response);
+                    if(res.status == 0){
+                        swal({
+                            title: "Error",
+                            text: res.msg,
+                            icon: "error"
+                        });
+                    }else if(res.status == 1){
+                        swal({
+                            title: "Operación Exitosa!",
+                            text: res.msg,
+                            icon: "success"
+                        });
+                    }else if(res.status == 2){
+                        swal({
+                            title: "Error",
+                            text: res.msg,
+                            icon: "error"
+                        });
+                    }
+
+                }
+            });
+
+
+
+
+
+        });
+    </script>
+
 
 </body>
