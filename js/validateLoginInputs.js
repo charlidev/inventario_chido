@@ -41,12 +41,17 @@ function agregarDependencia(){
         dataType: "json",
         success: function(data) {
             if(data.status == 1){
-                swal({
-                    title: "Éxito",
-                    text: data.msg,
-                    icon: "success"
-                });
-                
+                if(data.status == 1){
+                    swal({
+                        title: "Éxito",
+                        text: data.msg,
+                        icon: "success"
+                    }).then(function(){
+                        // Esta función se ejecuta cuando el usuario hace clic en "OK"
+                        $("#formAgregarDependencia").trigger("reset");
+                        $("#modalAgregarDependencia").modal("hide");
+                        });
+                }
             }
             else{
                 swal({

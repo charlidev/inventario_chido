@@ -20,7 +20,7 @@
 
         if($stmt){ //validamos si se encontro el registro
             $datos['status']=1;
-            $datos['msg']="!Dependencia guardada!";
+            $datos['msg']="!Dependencia guardada satisfactoriamente!";
         }
         else{ //accion si no se encuentra el registro
             $datos['status']=0;
