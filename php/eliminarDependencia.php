@@ -1,32 +1,32 @@
 <?php
     // Incluir archivo de conexión a la base de datos
-    include('db_connection.php');
+    require 'db_connection.php';
+
+    $id = $_POST['id'];
+
+    $datos= array();
 
     // Verificar si se ha enviado un ID de dependencia
-    if(isset($_POST['id'])) {
+    if(isset($id)) {
         // Obtener el ID de la dependencia
-        $id = $_POST['id'];
-
+        
         // Eliminar la dependencia de la base de datos
-        $query = "DELETE FROM dependencias WHERE id = ?";
+        $query = "DELETE FROM tblDependencia WHERE id = ?";
         $params = array($id);
         $result = sqlsrv_query($connection, $query, $params);
 
         // Verificar si se eliminó la dependencia correctamente
         if($result) {
-            // Si la eliminación fue exitosa, enviar una respuesta JSON al cliente
-            $response = array(
-                'status' => 1,
-                'msg' => 'La dependencia se eliminó correctamente'
-            );
-            echo json_encode($response);
+            $datos['status'] = 1;
+            $datos['msg'] = "Dependencia eliminada correctamente.";
+            
         } else {
             // Si hubo un error al eliminar la dependencia, enviar una respuesta JSON al cliente
-            $response = array(
-                'status' => 0,
-                'msg' => 'Hubo un error al eliminar la dependencia'
-            );
-            echo json_encode($response);
+            $datos['status'] = 0;
+            $datos['msg'] = "Error al eliminar el registro";
         }
+        sqlsrv_close($connection);
+        $json=json_encode($datos);
+        echo $json;
     }
 ?>

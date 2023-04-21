@@ -70,38 +70,35 @@ function editarDependencia(){
 //Función para elimnar registro de dependencia
 function eliminarDependencia(idDependencia) {
 
-    let id = idDependencia;
-  
+    let data = {'id': idDependencia};
+    alert(data.id);
     swal({
       title: "¿Estás seguro?",
       text: "Una vez eliminado, no podrás recuperar este registro",
       icon: "warning",
-      buttons: ["Cancelar", "Eliminar"],
+      buttons: true,
       dangerMode: true,
-    }).then((result) => {
-      if (result.isConfirmed) {
+    }).then((willDelete) => {
+      if (willDelete) {
         // Si el usuario confirma la eliminación, enviar la petición AJAX
         $.ajax({
           type: "POST",
           url: "php/eliminarDependencia.php",
-          data: {id: id},
+          data: data,
           dataType: "json",
-          success: function(response) {
+          success: function(data) {
             // Si la eliminación fue exitosa, mostrar una alerta de éxito
-            if(response.status == 1){
+            if(data.status == 1){
               swal({
                 title: "Éxito",
-                text: response.msg,
+                text: data.msg,
                 icon: "success"
-              }).then(function(){
-                // Esta función se ejecuta cuando el usuario hace clic en "OK"
-                $('#dataTable').load(location.href + " #dataTable");
               });
             }
             else{
               swal({
                 title: "Error",
-                text: response.msg,
+                text: data.msg,
                 icon: "error"
               });
             }
