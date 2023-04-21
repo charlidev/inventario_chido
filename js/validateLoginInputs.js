@@ -68,47 +68,44 @@ function editarDependencia(){
 }
 
 //Función para elimnar registro de dependencia
-function eliminarRegistro(idDependencia) {
+function eliminarDependencia(idDependencia) {
 
     let id = idDependencia;
-
+  
     swal({
-        title: "¿Estás seguro?",
-        text: "Una vez eliminado, no podrás recuperar este registro",
-        icon: "warning",
-        buttons: ["Cancelar", "Eliminar"],
-        dangerMode: true,
+      title: "¿Estás seguro?",
+      text: "Una vez eliminado, no podrás recuperar este registro",
+      icon: "warning",
+      buttons: ["Cancelar", "Eliminar"],
+      dangerMode: true,
     }).then((result) => {
-        console.log(result.value);
-      if (result.value) {
+      if (result.isConfirmed) {
         // Si el usuario confirma la eliminación, enviar la petición AJAX
-        console.log(result.value);
         $.ajax({
           type: "POST",
           url: "php/eliminarDependencia.php",
-          data: id,
+          data: {id: id},
           dataType: "json",
-          success: function(data) {
+          success: function(response) {
             // Si la eliminación fue exitosa, mostrar una alerta de éxito
-            if(data.status == 1){
-                swal({
-                    title: "Éxito",
-                    text: data.msg,
-                    icon: "success"
-                }).then(function(){
-                    // Esta función se ejecuta cuando el usuario hace clic en "OK"
-                    $('#dataTable').load(location.href + " #dataTable");
-                });
+            if(response.status == 1){
+              swal({
+                title: "Éxito",
+                text: response.msg,
+                icon: "success"
+              }).then(function(){
+                // Esta función se ejecuta cuando el usuario hace clic en "OK"
+                $('#dataTable').load(location.href + " #dataTable");
+              });
             }
             else{
-                swal({
-                    title: "Error",
-                    text: data.msg,
-                    icon: "error"
-                });
+              swal({
+                title: "Error",
+                text: response.msg,
+                icon: "error"
+              });
             }
           }
-          
         });
       }
     });

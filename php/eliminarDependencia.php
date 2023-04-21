@@ -1,32 +1,32 @@
 <?php
-    require 'php/db_connection.php';
+    // Incluir archivo de conexión a la base de datos
+    include('db_connection.php');
 
-    $id = $_POST['idDepen'];
+    // Verificar si se ha enviado un ID de dependencia
+    if(isset($_POST['id'])) {
+        // Obtener el ID de la dependencia
+        $id = $_POST['id'];
 
-    $datos = array();
+        // Eliminar la dependencia de la base de datos
+        $query = "DELETE FROM dependencias WHERE id = ?";
+        $params = array($id);
+        $result = sqlsrv_query($connection, $query, $params);
 
-    if(empty($_POST['idDepen'])){
-        // Uno o ambos campos están vacíos, muestra un mensaje de error
-        $response = array('status' => 0, 'msg' => 'Error al eliminar el registro.');
-        echo json_encode($response);
-    }else{
-
-        // Realizar la eliminación del registro de la base de datos
-        $consulta = "DELETE FROM tblDependencia WHERE idDependencia = ?";
-        $parametros = array($_POST['idDepen']);
-        $resultado = sqlsrv_query($connection, $consulta, $parametros);
-        if($stmt){ //validamos si se encontro el registro
-            $datos['status']=1;
-            $datos['msg']="!Dependencia eliminada satisfactoriamente!";
+        // Verificar si se eliminó la dependencia correctamente
+        if($result) {
+            // Si la eliminación fue exitosa, enviar una respuesta JSON al cliente
+            $response = array(
+                'status' => 1,
+                'msg' => 'La dependencia se eliminó correctamente'
+            );
+            echo json_encode($response);
+        } else {
+            // Si hubo un error al eliminar la dependencia, enviar una respuesta JSON al cliente
+            $response = array(
+                'status' => 0,
+                'msg' => 'Hubo un error al eliminar la dependencia'
+            );
+            echo json_encode($response);
         }
-        else{ //accion si no se encuentra el registro
-            $datos['status']=0;
-            $datos['msg']="Error al eliminar el registro.";
-        }
-        sqlsrv_close($connection);
-        //convertir array a json
-        $json=json_encode($datos);
-        echo $json;
-
     }
 ?>

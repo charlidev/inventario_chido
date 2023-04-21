@@ -71,7 +71,7 @@
                                                 <div class="text-center">
                                                     <div>
                                                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalEditarDependencia" id="btnAgregarDependencia">Editar</button>
-                                                        <button type="button" class="btn btn-danger" onclick="eliminarRegistro(<?php echo $row['idDependencia'] ?>)">Borrar</button>
+                                                        <button type="button" class="btn btn-danger" onclick="eliminarDependencia(<?php echo $row['idDependencia'] ?>)">Borrar</button>
                                                     </div>
                                                 </div>
                                             </td>
