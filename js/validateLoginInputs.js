@@ -49,8 +49,8 @@ function agregarDependencia(){
                     // Esta función se ejecuta cuando el usuario hace clic en "OK"
                     $("#formAgregarDependencia").trigger("reset");
                     $("#modalAgregarDependencia").modal("hide");
-                    $('#dataTable').load(location.href + " #dataTable");
                 });
+                $('#dataTable').load(location.href + " #dataTable");
             }
             else{
                 swal({
@@ -71,7 +71,6 @@ function editarDependencia(){
 function eliminarDependencia(idDependencia) {
 
     let data = {'id': idDependencia};
-    alert(data.id);
     swal({
       title: "¿Estás seguro?",
       text: "Una vez eliminado, no podrás recuperar este registro",
@@ -90,14 +89,15 @@ function eliminarDependencia(idDependencia) {
             // Si la eliminación fue exitosa, mostrar una alerta de éxito
             if(data.status == 1){
               swal({
-                title: "Éxito",
+                title: "Éxito.",
                 text: data.msg,
                 icon: "success"
               });
+              $('#dataTable').load(location.href + " #dataTable");
             }
             else{
               swal({
-                title: "Error",
+                title: "Error.",
                 text: data.msg,
                 icon: "error"
               });

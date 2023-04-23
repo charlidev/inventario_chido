@@ -11,7 +11,7 @@
         // Obtener el ID de la dependencia
         
         // Eliminar la dependencia de la base de datos
-        $query = "DELETE FROM tblDependencia WHERE id = ?";
+        $query = "DELETE FROM tblDependencia WHERE idDependencia = ?";
         $params = array($id);
         $result = sqlsrv_query($connection, $query, $params);
 
