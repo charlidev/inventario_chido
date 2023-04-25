@@ -146,13 +146,17 @@
                     </button>
                 </div>
             <div class="modal-body">
-                <form method="POST" id="formAgregarDependencia">
+                <form method="POST" id="formEditarDependencia">
                     <div>
-                        <label for="Nombre">Nombre de la dependencia</label>
+                        <label for="Nombre">ID</label>
+                        <input type="text" name="idEditar" id="idEditar" class="form-control" readonly>
+                        <br>
+
+                        <label for="Nombre">Nombre</label>
                         <input type="text" name="nombreEditar" id="nombreEditar" class="form-control">
                         <br>
 
-                        <label for="Nombre">Estatus de la dependencia</label>
+                        <label for="Nombre">Estatus</label>
                         <input type="text" name="estatusEditar" id="estatusEditar" class="form-control">
                         <br>
                     </div>
@@ -160,7 +164,7 @@
                 </form>
             </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-success" value="Guardar" onclick="editarDependencia(1)">Guardar</button>
+                    <button type="button" class="btn btn-success" value="Guardar" onclick="editarDependencia()">Guardar</button>
                 </div>
             </div>
         </div>

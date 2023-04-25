@@ -65,14 +65,13 @@ function agregarDependencia(){
 
 function mostrarDependencia(idDependencia){
     let data = {'id': idDependencia};
-    alert(data.id);
-
     $.ajax({
       type: "POST",
       url: "php/mostrarDependencia.php",
       data: data,
       dataType: "JSON",
       success: function(depen){
+          $('#idEditar').val(depen.id);
           $('#nombreEditar').val(depen.nombre);
           $('#estatusEditar').val(depen.estatus);
       }
@@ -120,8 +119,38 @@ function eliminarDependencia(idDependencia) {
     });
   }
 
-function editarDependencia(idDependencia){
-    let data = {'id': idDependencia};
-    alert(data.id);
+function editarDependencia(){
+    let data = {
+      'id': $('#idEditar').val(),
+      'nombreEDepen': $('#nombreEditar').val(),
+      'estatusEDepen': $('#estatusEditar').val()
+    }
+    $.ajax({
+      type: "POST",
+      url: "php/actualizarDependencia.php",
+      data: data,
+      dataType: "JSON",
+      success: function(data) {
+          if(data.status == 1){
+              swal({
+                  title: "Éxito",
+                  text: data.msg,
+                  icon: "success"
+              }).then(function(){
+                  // Esta función se ejecuta cuando el usuario hace clic en "OK"
+                  $("#formEditarDependencia").trigger("reset");
+                  $("#modalEditarDependencia").modal("hide");
+              });
+              $('#dataTable').load(location.href + " #dataTable");
+          }
+          else{
+              swal({
+                  title: "Error",
+                  text: data.msg,
+                  icon: "error"
+              });
+          }
+      }
+    });
 }
 

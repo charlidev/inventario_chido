@@ -6,7 +6,7 @@
 
     $datos=array();
 
-    if(empty($_POST['nombreDepen']) || empty($_POST['estatusDepen'])){
+    if(empty($nombre) || empty($status)){
         // Uno o ambos campos están vacíos, muestra un mensaje de error
         $response = array('status' => 0, 'msg' => 'Por favor, complete AMBOS campos.');
         echo json_encode($response);
@@ -14,7 +14,7 @@
     else{
         // Ambos campos están completos, continua con la lógica de tu programa
         $tsql = "INSERT INTO tblDependencia (Nombre, Estatus) VALUES (?, ?)";
-        $params = array($_POST['nombreDepen'], $_POST['estatusDepen']);
+        $params = array($nombre, $status);
 
         $stmt = sqlsrv_query($connection, $tsql, $params);
 

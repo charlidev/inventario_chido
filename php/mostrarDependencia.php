@@ -9,7 +9,7 @@
         // Obtener el ID de la dependencia
         
         // Eliminar la dependencia de la base de datos
-        $query = "SELECT nombre, estatus FROM tblDependencia WHERE idDependencia = ?";
+        $query = "SELECT idDependencia, nombre, estatus FROM tblDependencia WHERE idDependencia = ?";
         $params = array($id);
         $result = sqlsrv_query($connection, $query, $params);
 
@@ -18,6 +18,7 @@
         if ($result && sqlsrv_has_rows($result)) {
             $row = sqlsrv_fetch_array($result, SQLSRV_FETCH_ASSOC);
             $depen = array(
+                'id' => $row['idDependencia'],
                 'nombre' => $row['nombre'],
                 'estatus' => $row['estatus']
             );
