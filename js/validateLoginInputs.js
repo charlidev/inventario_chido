@@ -27,6 +27,7 @@ function login() {
     });
 }
 
+//FUNCIONES PARA LA PAGINA DE DEPENDEDENCIAS
 function agregarDependencia(){
     
     let data = {
@@ -78,7 +79,6 @@ function mostrarDependencia(idDependencia){
   });
 }
 
-//Función para elimnar registro de dependencia
 function eliminarDependencia(idDependencia) {
 
     let data = {'id': idDependencia};
@@ -154,3 +154,129 @@ function editarDependencia(){
     });
 }
 
+//FUNCIONES PARA LA PAGINA DE ROL
+function agregarRol(){
+    
+  let data = {
+      'nombreDepen': $('#nombreRol').val(),
+      'estatusDepen': $('#estatusRol').val()
+  }
+
+  $.ajax({
+      type: "POST",
+      url: "php/agregarRol.php",
+      data: data,
+      dataType: "json",
+      success: function(data) {
+          if(data.status == 1){
+              swal({
+                  title: "Éxito",
+                  text: data.msg,
+                  icon: "success"
+              }).then(function(){
+                  // Esta función se ejecuta cuando el usuario hace clic en "OK"
+                  $("#formAgregarRol").trigger("reset");
+                  $("#modalAgregarRol").modal("hide");
+              });
+              $('#dataTable').load(location.href + " #dataTable");
+          }
+          else{
+              swal({
+                  title: "Error",
+                  text: data.msg,
+                  icon: "error"
+              });
+          }
+      }
+  });
+}
+
+function eliminarRol(idRol) {
+
+  let data = {'id': idRol};
+  swal({
+    title: "¿Estás seguro?",
+    text: "Una vez eliminado, no podrás recuperar este registro",
+    icon: "warning",
+    buttons: true,
+    dangerMode: true,
+  }).then((willDelete) => {
+    if (willDelete) {
+      // Si el usuario confirma la eliminación, enviar la petición AJAX
+      $.ajax({
+        type: "POST",
+        url: "php/eliminarRol.php",
+        data: data,
+        dataType: "json",
+        success: function(data) {
+          // Si la eliminación fue exitosa, mostrar una alerta de éxito
+          if(data.status == 1){
+            swal({
+              title: "Éxito.",
+              text: data.msg,
+              icon: "success"
+            });
+            $('#dataTable').load(location.href + " #dataTable");
+          }
+          else{
+            swal({
+              title: "Error.",
+              text: data.msg,
+              icon: "error"
+            });
+          }
+        }
+      });
+    }
+  });
+}
+
+function mostrarRol(idRol){
+  let data = {'id': idRol};
+  $.ajax({
+    type: "POST",
+    url: "php/mostrarRol.php",
+    data: data,
+    dataType: "JSON",
+    success: function(rol){
+        $('#idEditarRol').val(rol.id);
+        $('#nombreEditarRol').val(rol.nombre);
+        $('#estatusEditarRol').val(rol.estatus);
+    }
+});
+}
+
+function editarRol(){
+  let data = {
+    'id': $('#idEditarRol').val(),
+    'nombreRole': $('#nombreEditarRol').val(),
+    'estatusRole': $('#estatusEditarRol').val()
+  }
+  $.ajax({
+    type: "POST",
+    url: "php/actualizarRol.php",
+    data: data,
+    dataType: "JSON",
+    success: function(data) {
+        if(data.status == 1){
+            swal({
+                title: "Éxito",
+                text: data.msg,
+                icon: "success"
+            }).then(function(){
+                // Esta función se ejecuta cuando el usuario hace clic en "OK"
+                $("#formEditarRol").trigger("reset");
+                $("#modalEditarRol").modal("hide");
+            });
+            $('#dataTable').load(location.href + " #dataTable");
+        }
+        else{
+            swal({
+                title: "Error",
+                text: data.msg,
+                icon: "error"
+            });
+        }
+    }
+  });
+}
