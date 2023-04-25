@@ -63,8 +63,20 @@ function agregarDependencia(){
     });
 }
 
-function editarDependencia(){
-    
+function mostrarDependencia(idDependencia){
+    let data = {'id': idDependencia};
+    alert(data.id);
+
+    $.ajax({
+      type: "POST",
+      url: "php/mostrarDependencia.php",
+      data: data,
+      dataType: "JSON",
+      success: function(depen){
+          $('#nombreEditar').val(depen.nombre);
+          $('#estatusEditar').val(depen.estatus);
+      }
+  });
 }
 
 //Función para elimnar registro de dependencia
@@ -107,4 +119,9 @@ function eliminarDependencia(idDependencia) {
       }
     });
   }
+
+function editarDependencia(idDependencia){
+    let data = {'id': idDependencia};
+    alert(data.id);
+}
 

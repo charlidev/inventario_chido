@@ -70,7 +70,7 @@
                                             <td>
                                                 <div class="text-center">
                                                     <div>
-                                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalEditarDependencia" id="btnAgregarDependencia">Editar</button>
+                                                        <button type="button" class="btn btn-primary" onclick="mostrarDependencia(<?php echo $row['idDependencia'] ?>)" data-toggle="modal" data-target="#modalEditarDependencia" id="btnAgregarDependencia">Editar</button>
                                                         <button type="button" class="btn btn-danger" onclick="eliminarDependencia(<?php echo $row['idDependencia'] ?>)">Borrar</button>
                                                     </div>
                                                 </div>
@@ -149,18 +149,18 @@
                 <form method="POST" id="formAgregarDependencia">
                     <div>
                         <label for="Nombre">Nombre de la dependencia</label>
-                        <input type="text" name="nombre" id="nombre" class="form-control">
+                        <input type="text" name="nombreEditar" id="nombreEditar" class="form-control">
                         <br>
 
                         <label for="Nombre">Estatus de la dependencia</label>
-                        <input type="text" name="nombre" id="nombre" class="form-control">
+                        <input type="text" name="estatusEditar" id="estatusEditar" class="form-control">
                         <br>
                     </div>
                     
                 </form>
             </div>
                 <div class="modal-footer">
-                    <input type="submit" name="action" id="action" class="btn btn-success" value="Guardar">
+                    <button type="button" class="btn btn-success" value="Guardar" onclick="editarDependencia(1)">Guardar</button>
                 </div>
             </div>
         </div>
