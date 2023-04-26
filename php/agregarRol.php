@@ -1,8 +1,8 @@
 <?php
     require 'db_connection.php';
 
-    $nombre= $_POST['nombreDepen'];
-    $status= $_POST['estatusDepen'];
+    $nombre= $_POST['nombreRol'];
+    $status= $_POST['estatusRol'];
 
     $datos=array();
 

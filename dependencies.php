@@ -117,12 +117,18 @@
                     <div class="modal-body">
                         
                         <div>
-                            <label for="Nombre">Nombre de la dependencia</label>
+                            <label for="Nombre">Nombre</label>
                             <input type="text" name="nombre" id="nombreDepen" class="form-control">
                             <br>
 
-                            <label for="Nombre">Estatus de la dependencia</label>
-                            <input type="text" name="estatus" id="estatusDepen" class="form-control" >
+                            <label for="estatusDepen">Estatus</label>
+                            <div>
+                                <input type="radio" name="estatusDepen" id="activo" value="Activo">
+                                <label for="activo">Activo</label>
+
+                                <input type="radio" name="estatusDepen" id="inactivo" value="Inactivo">
+                                <label for="inactivo">Inactivo</label>
+                            </div>
                             <br>
                         </div>
                             
@@ -156,8 +162,14 @@
                         <input type="text" name="nombreEditar" id="nombreEditar" class="form-control">
                         <br>
 
-                        <label for="Nombre">Estatus</label>
-                        <input type="text" name="estatusEditar" id="estatusEditar" class="form-control">
+                        <label for="estatusDepen">Estatus</label>
+                        <div>
+                            <input type="radio" name="estatusDepen" id="activoEdi" value="Activo">
+                            <label for="activoEdi">Activo</label>
+
+                            <input type="radio" name="estatusDepen" id="inactivoEdi" value="Inactivo">
+                            <label for="inactivoEdi">Inactivo</label>
+                        </div>
                         <br>
                     </div>
                     

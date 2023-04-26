@@ -121,8 +121,14 @@
                             <input type="text" name="nombre" id="nombreRol" class="form-control">
                             <br>
 
-                            <label for="Nombre">Estatus</label>
-                            <input type="text" name="estatus" id="estatusRol" class="form-control" >
+                            <label for="estatusRol">Estatus</label>
+                            <div>
+                                <input type="radio" name="estatusRol" id="activo" value="Activo">
+                                <label for="activo">Activo</label>
+
+                                <input type="radio" name="estatusRol" id="inactivo" value="Inactivo">
+                                <label for="inactivo">Inactivo</label>
+                            </div>
                             <br>
                         </div>
                             
@@ -156,8 +162,14 @@
                         <input type="text" name="nombreEditar" id="nombreEditarRol" class="form-control">
                         <br>
 
-                        <label for="Nombre">Estatus</label>
-                        <input type="text" name="estatusEditar" id="estatusEditarRol" class="form-control">
+                        <label for="estatusRol">Estatus</label>
+                            <div>
+                                <input type="radio" name="estatusRol" id="activoEdiRol" value="Activo">
+                                <label for="activoEdiRol">Activo</label>
+
+                                <input type="radio" name="estatusRol" id="inactivoEdiRol" value="Inactivo">
+                                <label for="inactivoEdiRol">Inactivo</label>
+                            </div>
                         <br>
                     </div>
                     

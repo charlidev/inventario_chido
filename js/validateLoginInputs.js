@@ -32,8 +32,8 @@ function agregarDependencia(){
     
     let data = {
         'nombreDepen': $('#nombreDepen').val(),
-        'estatusDepen': $('#estatusDepen').val()
-    }
+        'estatusDepen': $('input[name=estatusDepen]:checked').val()
+      }
 
     $.ajax({
         type: "POST",
@@ -74,7 +74,11 @@ function mostrarDependencia(idDependencia){
       success: function(depen){
           $('#idEditar').val(depen.id);
           $('#nombreEditar').val(depen.nombre);
-          $('#estatusEditar').val(depen.estatus);
+          if (depen.estatus === 'Activo' || depen.estatus === 'Activa') {
+            $('#activoEdi').prop('checked', true);
+          } else {
+            $('#inactivoEdi').prop('checked', true);
+          }
       }
   });
 }
@@ -123,7 +127,7 @@ function editarDependencia(){
     let data = {
       'id': $('#idEditar').val(),
       'nombreEDepen': $('#nombreEditar').val(),
-      'estatusEDepen': $('#estatusEditar').val()
+      'estatusEDepen': $('input[name=estatusDepen]:checked').val()
     }
     $.ajax({
       type: "POST",
@@ -158,8 +162,8 @@ function editarDependencia(){
 function agregarRol(){
     
   let data = {
-      'nombreDepen': $('#nombreRol').val(),
-      'estatusDepen': $('#estatusRol').val()
+      'nombreRol': $('#nombreRol').val(),
+      'estatusRol': $('input[name=estatusRol]:checked').val()
   }
 
   $.ajax({
@@ -241,7 +245,11 @@ function mostrarRol(idRol){
     success: function(rol){
         $('#idEditarRol').val(rol.id);
         $('#nombreEditarRol').val(rol.nombre);
-        $('#estatusEditarRol').val(rol.estatus);
+        if (rol.estatus === 'Activo' || rol.estatus === 'Activa') {
+          $('#activoEdiRol').prop('checked', true);
+        } else {
+          $('#inactivoEdiRol').prop('checked', true);
+        }
     }
 });
 }
@@ -250,7 +258,7 @@ function editarRol(){
   let data = {
     'id': $('#idEditarRol').val(),
     'nombreRole': $('#nombreEditarRol').val(),
-    'estatusRole': $('#estatusEditarRol').val()
+    'estatusRole': $('input[name=estatusRol]:checked').val()
   }
   $.ajax({
     type: "POST",
