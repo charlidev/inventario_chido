@@ -536,3 +536,127 @@ function editarUnidad(){
     }
   });
 }
+
+//FUNCIONES PARA LA PAGINA DE MARCA
+function agregarMarca(){
+
+  let data = {
+      'nombreMarca': $('#nombreMarca').val()
+  }
+
+  $.ajax({
+      type: "POST",
+      url: "php/agregarMarca.php",
+      data: data,
+      dataType: "json",
+      success: function(data) {
+          if(data.status == 1){
+              swal({
+                  title: "Éxito",
+                  text: data.msg,
+                  icon: "success"
+              }).then(function(){
+                  // Esta función se ejecuta cuando el usuario hace clic en "OK"
+                  $("#formAgregarMarca").trigger("reset");
+                  $("#modalAgregarMarca").modal("hide");
+              });
+              $('#dataTable').load(location.href + " #dataTable");
+          }
+          else{
+              swal({
+                  title: "Error",
+                  text: data.msg,
+                  icon: "error"
+              });
+          }
+      }
+  });
+}
+
+function eliminarMarca (idMarca) {
+
+  let data = {'id': idMarca};
+  swal({
+    title: "¿Estás seguro?",
+    text: "Una vez eliminado, no podrás recuperar este registro.",
+    icon: "warning",
+    buttons: true,
+    dangerMode: true,
+  }).then((willDelete) => {
+    if (willDelete) {
+      // Si el usuario confirma la eliminación, enviar la petición AJAX
+      $.ajax({
+        type: "POST",
+        url: "php/eliminarMarca.php",
+        data: data,
+        dataType: "json",
+        success: function(data) {
+          // Si la eliminación fue exitosa, mostrar una alerta de éxito
+          if(data.status == 1){
+            swal({
+              title: "Éxito.",
+              text: data.msg,
+              icon: "success"
+            });
+            $('#dataTable').load(location.href + " #dataTable");
+          }
+          else{
+            swal({
+              title: "Error.",
+              text: data.msg,
+              icon: "error"
+            });
+          }
+        }
+      });
+    }
+  });
+}
+
+function mostrarMarca(idMarca){
+  let data = {'id': idMarca};
+  $.ajax({
+    type: "POST",
+    url: "php/mostrarMarca.php",
+    data: data,
+    dataType: "JSON",
+    success: function(marca){
+        $('#editaridMarca').val(marca.id);
+        $('#editarMarca').val(marca.nombre);
+    }
+});
+}
+
+function editarMarca(){
+  let data = {
+    'id': $('#editaridMarca').val(),
+    'marca': $('#editarMarca').val(),
+  }
+  $.ajax({
+    type: "POST",
+    url: "php/actualizarMarca.php",
+    data: data,
+    dataType: "JSON",
+    success: function(data) {
+        if(data.status == 1){
+            swal({
+                title: "Éxito",
+                text: data.msg,
+                icon: "success"
+            }).then(function(){
+                // Esta función se ejecuta cuando el usuario hace clic en "OK"
+                $("#formEditarMarca").trigger("reset");
+                $("#modalEditarMarca").modal("hide");
+            });
+            $('#dataTable').load(location.href + " #dataTable");
+        }
+        else{
+            swal({
+                title: "Error",
+                text: data.msg,
+                icon: "error"
+            });
+        }
+    }
+  });
+}

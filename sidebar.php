@@ -28,6 +28,7 @@
                         <a class="collapse-item" href="roles.php">Roles</a>
                         <a class="collapse-item" href="material.php">Tipo de Material</a>
                         <a class="collapse-item" href="unidades.php">Unidades</a>
+                        <a class="collapse-item" href="marcas.php">Marcas</a>
                     </div>
                 </div>
             </li>       
