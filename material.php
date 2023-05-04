@@ -33,9 +33,9 @@
 
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">Catálogo de Dependencias</h1>
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalAgregarDependencia" id="btnAgregarDependencia">
-                            Agregar Dependencia
+                        <h1 class="h3 mb-0 text-gray-800">Catálogo de Tipo de Material</h1>
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalAgregarMaterial" id="btnAgregarMaterial">
+                            Agregar Material
                         </button>
                     </div>
 
@@ -46,9 +46,7 @@
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
-                                            <!-- <th class="w-25">id</th> -->
-                                            <th class="w-50">Dependencia</th>
-                                            <th class="w-25">Estatus</th>
+                                            <th class="w-50">Material</th>
                                             <th class="w-25">Acciones</th>
                                         </tr>
                                     </thead>
@@ -56,19 +54,18 @@
                                         <?php
                                         require 'php/db_connection.php';
                                         $conexion = $connection;
-                                        $consulta = "SELECT idDependencia, Nombre, Estatus FROM tblDependencia";
+                                        $consulta = "SELECT idMaterial, Material FROM tblMaterial";
                                         $resultado = sqlsrv_query($conexion, $consulta);
                                         while ($row = sqlsrv_fetch_array($resultado, SQLSRV_FETCH_ASSOC)) {
                                         ?>
                                         <tr>
-                                            <!-- <td><?php echo $row['idDependencia'] ?></td> -->
-                                            <td><?php echo $row['Nombre'] ?></td>
-                                            <td><?php echo $row['Estatus'] ?></td>
+                                            <!-- <td><?php echo $row['idMaterial'] ?></td> -->
+                                            <td><?php echo $row['Material'] ?></td>
                                             <td>
                                                 <div class="text-center">
                                                     <div>
-                                                        <button type="button" class="btn btn-primary" onclick="mostrarDependencia(<?php echo $row['idDependencia'] ?>)" data-toggle="modal" data-target="#modalEditarDependencia" id="btnAgregarDependencia">Editar</button>
-                                                        <button type="button" class="btn btn-danger" onclick="eliminarDependencia(<?php echo $row['idDependencia'] ?>)">Borrar</button>
+                                                        <button type="button" class="btn btn-primary" onclick="mostrarMaterial(<?php echo $row['idMaterial'] ?>)" data-toggle="modal" data-target="#modalEditarMaterial">Editar</button>
+                                                        <button type="button" class="btn btn-danger" onclick="eliminarMaterial(<?php echo $row['idMaterial'] ?>)">Borrar</button>
                                                     </div>
                                                 </div>
                                             </td>
@@ -100,80 +97,61 @@
     <!-- End of Page Wrapper -->
 
 
-    <!-- Codigo del modal de AGRAGAR DEPENDENCIA-->
-    <div class="modal fade" id="modalAgregarDependencia" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <!-- Codigo del modal de AGREGAR MATERIAL-->
+    <div class="modal fade" id="modalAgregarMaterial" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Agregar Dependencia</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Agregar Material</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form id="formAgregarDependencia">
+                <form id="formAgregarMaterial">
                     <div class="modal-body">
                         
                         <div>
                             <label for="Nombre">Nombre</label>
-                            <input type="text" name="nombre" id="nombreDepen" class="form-control">
-                            <br>
-
-                            <label for="estatusDepen">Estatus</label>
-                            <div>
-                                <input type="radio" name="estatusDepen" id="activo" value="Activo">
-                                <label for="activo">Activo</label>
-
-                                <input type="radio" name="estatusDepen" id="inactivo" value="Inactivo">
-                                <label for="inactivo">Inactivo</label>
-                            </div>
+                            <input type="text" name="nombre" id="nombreMaterial" class="form-control">
                             <br>
                         </div>
                             
                     </div>
                         <div class="modal-footer">
-                            <input type="button" class="btn btn-success" value="Agregar" onclick="agregarDependencia()">
+                            <input type="button" class="btn btn-success" value="Agregar" onclick="agregarMaterial()">
                         </div>
                     </div>
                 </form>
         </div>
     </div>
 
-    <!-- Codigo del modal de EDITAR DEPENDENCIA-->
-    <div class="modal fade" id="modalEditarDependencia" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <!-- Codigo del modal de EDITAR MATERIAL-->
+    <div class="modal fade" id="modalEditarMaterial" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Editar Dependencia</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Editar Material</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
             <div class="modal-body">
-                <form method="POST" id="formEditarDependencia">
+                <form method="POST" id="formEditarMaterial">
                     <div>
-                        <!-- <label for="Nombre">ID</label> -->
-                        <input type="text" name="idEditar" id="idEditar" class="form-control d-none " readonly>
+
+                        <input type="text" name="idEditarMaterial" id="idEditarMaterial" class="form-control d-none " readonly>
                         <br>
 
                         <label for="Nombre">Nombre</label>
-                        <input type="text" name="nombreEditar" id="nombreEditar" class="form-control">
+                        <input type="text" name="editarMaterial" id="editarMaterial" class="form-control">
                         <br>
 
-                        <label for="estatusDepen">Estatus</label>
-                        <div>
-                            <input type="radio" name="estatusDepen" id="activoEdi" value="Activo">
-                            <label for="activoEdi">Activo</label>
-
-                            <input type="radio" name="estatusDepen" id="inactivoEdi" value="Inactivo">
-                            <label for="inactivoEdi">Inactivo</label>
-                        </div>
-                        <br>
                     </div>
                     
                 </form>
             </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-success" value="Guardar" onclick="editarDependencia()">Guardar</button>
+                    <button type="button" class="btn btn-success" value="Guardar" onclick="editarMaterial()">Guardar</button>
                 </div>
             </div>
         </div>

@@ -26,6 +26,8 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <a class="collapse-item" href="dependencies.php">Dependencias</a>
                         <a class="collapse-item" href="roles.php">Roles</a>
+                        <a class="collapse-item" href="material.php">Tipo de Material</a>
+                        <a class="collapse-item" href="unidades.php">Unidades</a>
                     </div>
                 </div>
             </li>       

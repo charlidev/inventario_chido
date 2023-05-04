@@ -288,3 +288,251 @@ function editarRol(){
     }
   });
 }
+
+//FUNCIONES PARA LA PAGINA DE METERIAL
+function agregarMaterial(){
+    
+  let data = {
+      'nombreMaterial': $('#nombreMaterial').val()
+  }
+
+  $.ajax({
+      type: "POST",
+      url: "php/agregarMaterial.php",
+      data: data,
+      dataType: "json",
+      success: function(data) {
+          if(data.status == 1){
+              swal({
+                  title: "Éxito",
+                  text: data.msg,
+                  icon: "success"
+              }).then(function(){
+                  // Esta función se ejecuta cuando el usuario hace clic en "OK"
+                  $("#formAgregarMaterial").trigger("reset");
+                  $("#modalAgregarMaterial").modal("hide");
+              });
+              $('#dataTable').load(location.href + " #dataTable");
+          }
+          else{
+              swal({
+                  title: "Error",
+                  text: data.msg,
+                  icon: "error"
+              });
+          }
+      }
+  });
+}
+
+function eliminarMaterial (idMaterial) {
+
+  let data = {'id': idMaterial};
+  swal({
+    title: "¿Estás seguro?",
+    text: "Una vez eliminado, no podrás recuperar este registro.",
+    icon: "warning",
+    buttons: true,
+    dangerMode: true,
+  }).then((willDelete) => {
+    if (willDelete) {
+      // Si el usuario confirma la eliminación, enviar la petición AJAX
+      $.ajax({
+        type: "POST",
+        url: "php/eliminarMaterial.php",
+        data: data,
+        dataType: "json",
+        success: function(data) {
+          // Si la eliminación fue exitosa, mostrar una alerta de éxito
+          if(data.status == 1){
+            swal({
+              title: "Éxito.",
+              text: data.msg,
+              icon: "success"
+            });
+            $('#dataTable').load(location.href + " #dataTable");
+          }
+          else{
+            swal({
+              title: "Error.",
+              text: data.msg,
+              icon: "error"
+            });
+          }
+        }
+      });
+    }
+  });
+}
+
+function mostrarMaterial(idMaterial){
+  let data = {'id': idMaterial};
+  $.ajax({
+    type: "POST",
+    url: "php/mostrarMaterial.php",
+    data: data,
+    dataType: "JSON",
+    success: function(mate){
+        $('#idEditarMaterial').val(mate.id);
+        $('#editarMaterial').val(mate.nombre);
+    }
+});
+}
+
+function editarMaterial(){
+  let data = {
+    'id': $('#idEditarMaterial').val(),
+    'material': $('#editarMaterial').val(),
+  }
+  $.ajax({
+    type: "POST",
+    url: "php/actualizarMaterial.php",
+    data: data,
+    dataType: "JSON",
+    success: function(data) {
+        if(data.status == 1){
+            swal({
+                title: "Éxito",
+                text: data.msg,
+                icon: "success"
+            }).then(function(){
+                // Esta función se ejecuta cuando el usuario hace clic en "OK"
+                $("#formEditarMaterial").trigger("reset");
+                $("#modalEditarMaterial").modal("hide");
+            });
+            $('#dataTable').load(location.href + " #dataTable");
+        }
+        else{
+            swal({
+                title: "Error",
+                text: data.msg,
+                icon: "error"
+            });
+        }
+    }
+  });
+}
+
+//FUNCIONES PARA LA PAGINA DE UNIDAD
+function agregarUnidad(){
+
+  let data = {
+      'nombreUnidad': $('#nombreUnidad').val()
+  }
+
+  $.ajax({
+      type: "POST",
+      url: "php/agregarUnidad.php",
+      data: data,
+      dataType: "json",
+      success: function(data) {
+          if(data.status == 1){
+              swal({
+                  title: "Éxito",
+                  text: data.msg,
+                  icon: "success"
+              }).then(function(){
+                  // Esta función se ejecuta cuando el usuario hace clic en "OK"
+                  $("#formAgregarUnidad").trigger("reset");
+                  $("#modalAgregarUnidad").modal("hide");
+              });
+              $('#dataTable').load(location.href + " #dataTable");
+          }
+          else{
+              swal({
+                  title: "Error",
+                  text: data.msg,
+                  icon: "error"
+              });
+          }
+      }
+  });
+}
+
+function eliminarUnidad (idUnidad) {
+
+  let data = {'id': idUnidad};
+  swal({
+    title: "¿Estás seguro?",
+    text: "Una vez eliminado, no podrás recuperar este registro.",
+    icon: "warning",
+    buttons: true,
+    dangerMode: true,
+  }).then((willDelete) => {
+    if (willDelete) {
+      // Si el usuario confirma la eliminación, enviar la petición AJAX
+      $.ajax({
+        type: "POST",
+        url: "php/eliminarUnidad.php",
+        data: data,
+        dataType: "json",
+        success: function(data) {
+          // Si la eliminación fue exitosa, mostrar una alerta de éxito
+          if(data.status == 1){
+            swal({
+              title: "Éxito.",
+              text: data.msg,
+              icon: "success"
+            });
+            $('#dataTable').load(location.href + " #dataTable");
+          }
+          else{
+            swal({
+              title: "Error.",
+              text: data.msg,
+              icon: "error"
+            });
+          }
+        }
+      });
+    }
+  });
+}
+
+function mostrarUnidad(idUnidad){
+  let data = {'id': idUnidad};
+  $.ajax({
+    type: "POST",
+    url: "php/mostrarUnidad.php",
+    data: data,
+    dataType: "JSON",
+    success: function(unidad){
+        $('#editaridUnidad').val(unidad.id);
+        $('#editarUnidad').val(unidad.nombre);
+    }
+});
+}
+
+function editarUnidad(){
+  let data = {
+    'id': $('#editaridUnidad').val(),
+    'unidad': $('#editarUnidad').val(),
+  }
+  $.ajax({
+    type: "POST",
+    url: "php/actualizarUnidad.php",
+    data: data,
+    dataType: "JSON",
+    success: function(data) {
+        if(data.status == 1){
+            swal({
+                title: "Éxito",
+                text: data.msg,
+                icon: "success"
+            }).then(function(){
+                // Esta función se ejecuta cuando el usuario hace clic en "OK"
+                $("#formEditarUnidad").trigger("reset");
+                $("#modalEditarUnidad").modal("hide");
+            });
+            $('#dataTable').load(location.href + " #dataTable");
+        }
+        else{
+            swal({
+                title: "Error",
+                text: data.msg,
+                icon: "error"
+            });
+        }
+    }
+  });
+}
