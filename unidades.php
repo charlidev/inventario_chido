@@ -33,7 +33,7 @@
 
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">Catálogo de Unidades</h1>
+                        <h1 class="h4 mb-0 text-gray-800">Catálogo de Unidades</h1>
                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalAgregarUnidad" id="btnAgregarUnidad">
                             Agregar Unidad
                         </button>
@@ -125,7 +125,7 @@
         </div>
     </div>
 
-    <!-- Codigo del modal de EDITAR MATERIAL-->
+    <!-- Codigo del modal de EDITAR UNIDAD-->
     <div class="modal fade" id="modalEditarUnidad" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">

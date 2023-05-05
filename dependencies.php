@@ -33,7 +33,7 @@
 
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">Catálogo de Dependencias</h1>
+                        <h1 class="h4 mb-0 text-gray-800">Catálogo de Dependencias</h1>
                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalAgregarDependencia" id="btnAgregarDependencia">
                             Agregar Dependencia
                         </button>

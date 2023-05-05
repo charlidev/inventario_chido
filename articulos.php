@@ -33,9 +33,9 @@
 
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h4 mb-0 text-gray-800">Catálogo de Marcas</h1>
+                        <h1 class="h4 mb-0 text-gray-800">Catálogo de Artículos</h1>
                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalAgregarMarca" id="btnAgregarMarca">
-                            Agregar Marca
+                            Agregar Artículo
                         </button>
                     </div>
 
@@ -46,26 +46,34 @@
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
-                                            <th class="w-50">Marca</th>
-                                            <th class="w-25">Acciones</th>
+                                            <th class = "w-25">Nombre</th>
+                                            <th>Existencia</th>
+                                            <th>Código de barras</th>
+                                            <th>Fecha Registro</th>
+                                            <th>Oficio</th>
+                                            <th>Acciones</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <?php
                                         require 'php/db_connection.php';
                                         $conexion = $connection;
-                                        $consulta = "SELECT idMarca, Marca FROM tblMarca";
+                                        $consulta = "SELECT idArticulo, Nombre, Existencia, Codigo, fechaRegistro, oficioEntra FROM tblArticulo";
                                         $resultado = sqlsrv_query($conexion, $consulta);
                                         while ($row = sqlsrv_fetch_array($resultado, SQLSRV_FETCH_ASSOC)) {
                                         ?>
                                         <tr>
-                                            <!-- <td><?php echo $row['idMarca'] ?></td> -->
-                                            <td><?php echo $row['Marca'] ?></td>
+                                            <!-- <td><?php echo $row['idArticulo'] ?></td> -->
+                                            <td><?php echo $row['Nombre'] ?></td>
+                                            <td><?php echo $row['Existencia'] ?></td>
+                                            <td><?php echo $row['Codigo'] ?></td>
+                                            <td><?php echo date_format($row['fechaRegistro'], 'd-m-Y') ?></td>
+                                            <td><?php echo $row['oficioEntra'] ?></td>
                                             <td>
                                                 <div class="text-center">
                                                     <div>
-                                                        <button type="button" class="btn btn-primary" onclick="mostrarMarca(<?php echo $row['idMarca'] ?>)" data-toggle="modal" data-target="#modalEditarMarca">Editar</button>
-                                                        <button type="button" class="btn btn-danger" onclick="eliminarMarca(<?php echo $row['idMarca'] ?>)">Borrar</button>
+                                                        <button type="button" class="btn btn-primary" onclick="mostrarArticulo(<?php echo $row['idArticulo'] ?>)" data-toggle="modal" data-target="#modalEditarMarca">Editar</button>
+                                                        <button type="button" class="btn btn-danger" onclick="eliminarArticulo(<?php echo $row['idArticulo'] ?>)">Borrar</button>
                                                     </div>
                                                 </div>
                                             </td>

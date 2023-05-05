@@ -29,6 +29,7 @@
                         <a class="collapse-item" href="material.php">Tipo de Material</a>
                         <a class="collapse-item" href="unidades.php">Unidades</a>
                         <a class="collapse-item" href="marcas.php">Marcas</a>
+                        <a class="collapse-item" href="articulos.php">Artículos</a>
                     </div>
                 </div>
             </li>       
