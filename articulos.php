@@ -34,7 +34,7 @@
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
                         <h1 class="h4 mb-0 text-gray-800">Catálogo de Artículos</h1>
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalAgregarMarca" id="btnAgregarMarca">
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalAgregarArticulo" id="btnAgregarArticulo">
                             Agregar Artículo
                         </button>
                     </div>
@@ -46,11 +46,14 @@
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
-                                            <th class = "w-25">Nombre</th>
+                                            <th>Nombre</th>
                                             <th>Existencia</th>
                                             <th>Código de barras</th>
                                             <th>Fecha Registro</th>
                                             <th>Oficio</th>
+                                            <th>Marca</th>
+                                            <th>Material</th>
+                                            <th>Unidad</th>
                                             <th>Acciones</th>
                                         </tr>
                                     </thead>
@@ -58,7 +61,7 @@
                                         <?php
                                         require 'php/db_connection.php';
                                         $conexion = $connection;
-                                        $consulta = "SELECT idArticulo, Nombre, Existencia, Codigo, fechaRegistro, oficioEntra FROM tblArticulo";
+                                        $consulta = "SELECT idArticulo, Nombre, Existencia, Codigo, fechaRegistro, oficioEntra, idMarca, idMaterial, idUnidad FROM tblArticulo";
                                         $resultado = sqlsrv_query($conexion, $consulta);
                                         while ($row = sqlsrv_fetch_array($resultado, SQLSRV_FETCH_ASSOC)) {
                                         ?>
@@ -69,10 +72,13 @@
                                             <td><?php echo $row['Codigo'] ?></td>
                                             <td><?php echo date_format($row['fechaRegistro'], 'd-m-Y') ?></td>
                                             <td><?php echo $row['oficioEntra'] ?></td>
+                                            <td><?php echo $row['idMarca'] ?></td>
+                                            <td><?php echo $row['idMaterial'] ?></td>
+                                            <td><?php echo $row['idUnidad'] ?></td>
                                             <td>
                                                 <div class="text-center">
                                                     <div>
-                                                        <button type="button" class="btn btn-primary" onclick="mostrarArticulo(<?php echo $row['idArticulo'] ?>)" data-toggle="modal" data-target="#modalEditarMarca">Editar</button>
+                                                        <button type="button" class="btn btn-primary" onclick="mostrarArticulo(<?php echo $row['idArticulo'] ?>)" data-toggle="modal" data-target="#modalEditarArticulo">Editar</button>
                                                         <button type="button" class="btn btn-danger" onclick="eliminarArticulo(<?php echo $row['idArticulo'] ?>)">Borrar</button>
                                                     </div>
                                                 </div>
@@ -106,21 +112,49 @@
 
 
     <!-- Codigo del modal de AGREGAR MARCA-->
-    <div class="modal fade" id="modalAgregarMarca" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="modalAgregarArticulo" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Agregar Marca</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Agregar Artículo</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form id="formAgregarMarca">
+                <form id="formAgregarArticulo">
                     <div class="modal-body">
                         
                         <div>
+                            <label for="Nombre">Nombre</label>
+                            <input type="text" name="nombre" id="nombreArticulo" class="form-control">
+                            <br>
+
+                            <label for="Nombre">Existencia</label>
+                            <input type="text" name="nombre" id="existenciaArticulo" class="form-control">
+                            <br>
+
+                            <label for="Nombre">Código</label>
+                            <input type="text" name="nombre" id="codigoArticulo" class="form-control">
+                            <br>
+
+                            <label for="Nombre">Fecha de Registro</label>
+                            <input type="text" name="nombre" id="fechaRegistroArticulo" class="form-control">
+                            <br>
+
+                            <label for="Nombre">Oficio</label>
+                            <input type="text" name="nombre" id="oficioArticulo" class="form-control">
+                            <br>
+
+                            <label for="Nombre">Marca</label>
+                            <input type="text" name="nombre" id="marcaArticulo" class="form-control">
+                            <br>
+
+                            <label for="Nombre">Material</label>
+                            <input type="text" name="nombre" id="materialArticulo" class="form-control">
+                            <br>
+
                             <label for="Nombre">Unidad</label>
-                            <input type="text" name="nombre" id="nombreMarca" class="form-control">
+                            <input type="text" name="nombre" id="unidadArticulo" class="form-control">
                             <br>
                         </div>
                             
@@ -134,17 +168,17 @@
     </div>
 
     <!-- Codigo del modal de EDITAR MARCA-->
-    <div class="modal fade" id="modalEditarMarca" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="modalEditarArticulo" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Editar Marca</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Editar Artículo</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
             <div class="modal-body">
-                <form method="POST" id="formEditarMarca">
+                <form method="POST" id="formEditarArticulo">
                     <div>
 
                         <input type="text" name="editaridUnidad" id="editaridMarca" class="form-control d-none " readonly>
@@ -165,4 +199,6 @@
         </div>
     </div>
 
+
+    <script src="js/datepicker.js"></script>
 </body>
