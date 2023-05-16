@@ -129,36 +129,63 @@
                         
                         <div>
                             <label for="Nombre">Nombre</label>
-                            <input type="text" name="nombre" id="nombreArticulo" class="form-control">
+                            <input type="text" name="nombre" id="nombreArticulo" class="form-control" autocomplete="off">
                             <br>
 
                             <label for="Nombre">Existencia</label>
-                            <input type="text" name="nombre" id="existenciaArticulo" class="form-control">
+                            <input type="text" name="nombre" id="existenciaArticulo" class="form-control" autocomplete="off">
                             <br>
 
                             <label for="Nombre">Código</label>
-                            <input type="text" name="nombre" id="codigoArticulo" class="form-control">
+                            <input type="text" name="nombre" id="codigoArticulo" class="form-control" autocomplete="off">
                             <br>
 
                             <label for="Nombre">Fecha de Registro</label>
-                            <input type="text" name="nombre" id="fechaRegistroArticulo" class="form-control">
+                            <input type="text" name="nombre" id="fechaRegistroArticulo" class="form-control" autocomplete="off">
                             <br>
 
                             <label for="Nombre">Oficio</label>
-                            <input type="text" name="nombre" id="oficioArticulo" class="form-control">
+                            <input type="text" name="nombre" id="oficioArticulo" class="form-control" autocomplete="off">
                             <br>
 
                             <label for="Nombre">Marca</label>
-                            <input type="text" name="nombre" id="marcaArticulo" class="form-control">
+                            <input type="text" name="nombre" id="marcaArticulo" class="form-control" autocomplete="off">
                             <br>
 
-                            <label for="Nombre">Material</label>
-                            <input type="text" name="nombre" id="materialArticulo" class="form-control">
-                            <br>
+                            <?php
+                                require 'php/db_connection.php';
+                                $conexion = $connection;
 
-                            <label for="Nombre">Unidad</label>
-                            <input type="text" name="nombre" id="unidadArticulo" class="form-control">
-                            <br>
+                                // Consulta para obtener los materiales
+                                $consultaMaterial = "SELECT idMaterial, Material FROM tblMaterial";
+                                $resultadoMaterial = sqlsrv_query($conexion, $consultaMaterial);
+
+                                // Consulta para obtener las unidades
+                                $consultaUnidad = "SELECT idUnidad, Nombre FROM tblUnidad";
+                                $resultadoUnidad = sqlsrv_query($conexion, $consultaUnidad);
+                                ?>
+
+                                <label for="Nombre">Material</label>
+                                <!-- Generar opciones para la lista desplegable de Material -->
+                                <select name="material" id="materialArticulo" class="form-control">
+                                    <?php
+                                    while ($row = sqlsrv_fetch_array($resultadoMaterial, SQLSRV_FETCH_ASSOC)) {
+                                        echo '<option value="' . $row['idMaterial'] . '">' . $row['Material'] . '</option>';
+                                    }
+                                    ?>
+                                </select>
+                                <br>
+                                
+                                <label for="Nombre">Unidad</label>
+                                <!-- Generar opciones para la lista desplegable de Unidad -->
+                                <select name="unidad" id="unidadArticulo" class="form-control">
+                                    <?php
+                                    while ($row = sqlsrv_fetch_array($resultadoUnidad, SQLSRV_FETCH_ASSOC)) {
+                                        echo '<option value="' . $row['idUnidad'] . '">' . $row['Nombre'] . '</option>';
+                                    }
+                                    ?>
+                                </select>
+                                <br>
                         </div>
                             
                     </div>
