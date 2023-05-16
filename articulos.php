@@ -61,20 +61,23 @@
                                         <?php
                                         require 'php/db_connection.php';
                                         $conexion = $connection;
-                                        $consulta = "SELECT idArticulo, Nombre, Existencia, Codigo, fechaRegistro, oficioEntra, idMarca, idMaterial, idUnidad FROM tblArticulo";
+                                        $consulta = "SELECT a.idArticulo, a.Nombre, a.Existencia, a.Codigo, a.fechaRegistro, a.oficioEntra, m.Marca, ma.Material, u.Nombre AS Unidad 
+                                                    FROM tblArticulo a
+                                                    INNER JOIN tblMarca m ON a.idMarca = m.idMarca
+                                                    INNER JOIN tblMaterial ma ON a.idMaterial = ma.idMaterial
+                                                    INNER JOIN tblUnidad u ON a.idUnidad = u.idUnidad";
                                         $resultado = sqlsrv_query($conexion, $consulta);
                                         while ($row = sqlsrv_fetch_array($resultado, SQLSRV_FETCH_ASSOC)) {
                                         ?>
                                         <tr>
-                                            <!-- <td><?php echo $row['idArticulo'] ?></td> -->
                                             <td><?php echo $row['Nombre'] ?></td>
                                             <td><?php echo $row['Existencia'] ?></td>
                                             <td><?php echo $row['Codigo'] ?></td>
                                             <td><?php echo date_format($row['fechaRegistro'], 'd-m-Y') ?></td>
                                             <td><?php echo $row['oficioEntra'] ?></td>
-                                            <td><?php echo $row['idMarca'] ?></td>
-                                            <td><?php echo $row['idMaterial'] ?></td>
-                                            <td><?php echo $row['idUnidad'] ?></td>
+                                            <td><?php echo $row['Marca'] ?></td>
+                                            <td><?php echo $row['Material'] ?></td>
+                                            <td><?php echo $row['Unidad'] ?></td>
                                             <td>
                                                 <div class="text-center">
                                                     <div>
@@ -85,7 +88,7 @@
                                             </td>
                                         </tr>
                                         <?php
-                                            }
+                                        }
                                         ?>
                                     </tbody>
                                 </table>
