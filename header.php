@@ -48,6 +48,7 @@
 <script src="vendor/datatables/buttons.colVis.min.js"></script>
 <script src="vendor/datatables/buttons.html5.min.js"></script>
 <script src="vendor/datatables/buttons.print.min.js"></script>
+<script src="js/JsBarcode.all.min.js"></script>
 
 <!-- Page level custom scripts -->
 <script src="js/demo/datatables-demo.js"></script>

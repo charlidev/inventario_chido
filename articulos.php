@@ -67,26 +67,28 @@
                                                     INNER JOIN tblMaterial ma ON a.idMaterial = ma.idMaterial
                                                     INNER JOIN tblUnidad u ON a.idUnidad = u.idUnidad";
                                         $resultado = sqlsrv_query($conexion, $consulta);
+                                        $codbarra = array(); // Declaramos un arreglo para guardar los códigos de barras
                                         while ($row = sqlsrv_fetch_array($resultado, SQLSRV_FETCH_ASSOC)) {
+                                            $codbarra[] = (string) $row['Codigo']; // Guardamos los códigos en el arreglo
                                         ?>
-                                        <tr>
-                                            <td><?php echo $row['Nombre'] ?></td>
-                                            <td><?php echo $row['Existencia'] ?></td>
-                                            <td><?php echo $row['Codigo'] ?></td>
-                                            <td><?php echo date_format($row['fechaRegistro'], 'd-m-Y') ?></td>
-                                            <td><?php echo $row['oficioEntra'] ?></td>
-                                            <td><?php echo $row['Marca'] ?></td>
-                                            <td><?php echo $row['Material'] ?></td>
-                                            <td><?php echo $row['Unidad'] ?></td>
-                                            <td>
-                                                <div class="text-center">
-                                                    <div>
-                                                        <button type="button" class="btn btn-primary" onclick="mostrarArticulo(<?php echo $row['idArticulo'] ?>)" data-toggle="modal" data-target="#modalEditarArticulo">Editar</button>
-                                                        <button type="button" class="btn btn-danger" onclick="eliminarArticulo(<?php echo $row['idArticulo'] ?>)">Borrar</button>
+                                            <tr>
+                                                <td><?php echo $row['Nombre'] ?></td>
+                                                <td><?php echo $row['Existencia'] ?></td>
+                                                <td><svg id="barcode-<?php echo $row['Codigo']; ?>" style="height: 6rem;"></svg></td>
+                                                <td><?php echo date_format($row['fechaRegistro'], 'd-m-Y') ?></td>
+                                                <td><?php echo $row['oficioEntra'] ?></td>
+                                                <td><?php echo $row['Marca'] ?></td>
+                                                <td><?php echo $row['Material'] ?></td>
+                                                <td><?php echo $row['Unidad'] ?></td>
+                                                <td>
+                                                    <div class="text-center">
+                                                        <div>
+                                                            <button type="button" class="btn btn-primary" onclick="mostrarArticulo(<?php echo $row['idArticulo'] ?>)" data-toggle="modal" data-target="#modalEditarArticulo">Editar</button>
+                                                            <button type="button" class="btn btn-danger" onclick="eliminarArticulo(<?php echo $row['idArticulo'] ?>)">Borrar</button>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            </td>
-                                        </tr>
+                                                </td>
+                                            </tr>
                                         <?php
                                         }
                                         ?>
@@ -231,4 +233,12 @@
 
 
     <script src="js/datepicker.js"></script>
+    <script>
+    <?php foreach ($codbarra as $codigo) : ?>
+        JsBarcode("#barcode-<?php echo $codigo; ?>", "<?php echo $codigo; ?>", {
+            format: "CODE128",
+            displayValue: true
+        });
+    <?php endforeach; ?>
+</script>
 </body>
