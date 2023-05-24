@@ -48,7 +48,6 @@
                                         <tr>
                                             <th>Nombre</th>
                                             <th>Existencia</th>
-                                            <th>Código de barras</th>
                                             <th>Fecha Registro</th>
                                             <th>Oficio</th>
                                             <th>Marca</th>
@@ -61,20 +60,17 @@
                                         <?php
                                         require 'php/db_connection.php';
                                         $conexion = $connection;
-                                        $consulta = "SELECT a.idArticulo, a.Nombre, a.Existencia, a.Codigo, a.fechaRegistro, a.oficioEntra, m.Marca, ma.Material, u.Nombre AS Unidad 
+                                        $consulta = "SELECT a.idArticulo, a.Nombre, a.Existencia, a.fechaRegistro, a.oficioEntra, m.Marca, ma.Material, u.Nombre AS Unidad 
                                                     FROM tblArticulo a
                                                     INNER JOIN tblMarca m ON a.idMarca = m.idMarca
                                                     INNER JOIN tblMaterial ma ON a.idMaterial = ma.idMaterial
                                                     INNER JOIN tblUnidad u ON a.idUnidad = u.idUnidad";
                                         $resultado = sqlsrv_query($conexion, $consulta);
-                                        $codbarra = array(); // Declaramos un arreglo para guardar los códigos de barras
                                         while ($row = sqlsrv_fetch_array($resultado, SQLSRV_FETCH_ASSOC)) {
-                                            $codbarra[] = (string) $row['Codigo']; // Guardamos los códigos en el arreglo
                                         ?>
                                             <tr>
                                                 <td><?php echo $row['Nombre'] ?></td>
                                                 <td><?php echo $row['Existencia'] ?></td>
-                                                <td><svg id="barcode-<?php echo $row['Codigo']; ?>" style="height: 6rem;"></svg></td>
                                                 <td><?php echo date_format($row['fechaRegistro'], 'd-m-Y') ?></td>
                                                 <td><?php echo $row['oficioEntra'] ?></td>
                                                 <td><?php echo $row['Marca'] ?></td>
@@ -130,29 +126,23 @@
                     <div class="modal-body">
                         
                         <div>
-                            <label for="Nombre">Nombre</label>
-                            <input type="text" name="nombre" id="nombreArticulo" class="form-control" autocomplete="off">
+                            <label for="nombreArticulo">Nombre</label>
+                            <input type="text" name="nombreArticulo" id="nombreArticulo" class="form-control" autocomplete="off">
                             <br>
 
-                            <label for="Nombre">Existencia</label>
-                            <input type="text" name="nombre" id="existenciaArticulo" class="form-control" autocomplete="off">
+                            <label for="existenciaArticulo">Existencia</label>
+                            <input type="text" name="existenciaArticulo" id="existenciaArticulo" class="form-control" autocomplete="off">
                             <br>
 
-                            <label for="Nombre">Código</label>
-                            <input type="text" name="nombre" id="codigoArticulo" class="form-control" autocomplete="off">
+                            <label for="fechaRegistroArticulo">Fecha de Registro</label>
+                            <input type="text" name="fechaRegistroArticulo" id="fechaRegistroArticulo" class="form-control" autocomplete="off">
                             <br>
 
-                            <label for="Nombre">Fecha de Registro</label>
-                            <input type="text" name="nombre" id="fechaRegistroArticulo" class="form-control" autocomplete="off">
+                            <label for="oficioArticulo">Oficio</label>
+                            <input type="text" name="oficioArticulo" id="oficioArticulo" class="form-control" autocomplete="off">
                             <br>
 
-                            <label for="Nombre">Oficio</label>
-                            <input type="text" name="nombre" id="oficioArticulo" class="form-control" autocomplete="off">
-                            <br>
-
-                            <label for="Nombre">Marca</label>
-                            <input type="text" name="nombre" id="marcaArticulo" class="form-control" autocomplete="off">
-                            <br>
+                            
 
                             <?php
                                 require 'php/db_connection.php';
@@ -165,11 +155,26 @@
                                 // Consulta para obtener las unidades
                                 $consultaUnidad = "SELECT idUnidad, Nombre FROM tblUnidad";
                                 $resultadoUnidad = sqlsrv_query($conexion, $consultaUnidad);
+
+                                // Consulta para obtener las unidades
+                                $consultaMarca = "SELECT idMarca, Marca FROM tblMarca";
+                                $resultadoMarca = sqlsrv_query($conexion, $consultaMarca);
                                 ?>
 
-                                <label for="Nombre">Material</label>
+                                <label for="marcaArticulo">Marca</label>
                                 <!-- Generar opciones para la lista desplegable de Material -->
-                                <select name="material" id="materialArticulo" class="form-control">
+                                <select name="marcaArticulo" id="marcaArticulo" class="form-control">
+                                    <?php
+                                    while ($row = sqlsrv_fetch_array($resultadoMarca, SQLSRV_FETCH_ASSOC)) {
+                                        echo '<option value="' . $row['idMarca'] . '">' . $row['Marca'] . '</option>';
+                                    }
+                                    ?>
+                                </select>
+                                <br>
+
+                                <label for="materialArticulo">Material</label>
+                                <!-- Generar opciones para la lista desplegable de Material -->
+                                <select name="materialArticulo" id="materialArticulo" class="form-control">
                                     <?php
                                     while ($row = sqlsrv_fetch_array($resultadoMaterial, SQLSRV_FETCH_ASSOC)) {
                                         echo '<option value="' . $row['idMaterial'] . '">' . $row['Material'] . '</option>';
@@ -178,9 +183,9 @@
                                 </select>
                                 <br>
                                 
-                                <label for="Nombre">Unidad</label>
+                                <label for="unidadArticulo">Unidad</label>
                                 <!-- Generar opciones para la lista desplegable de Unidad -->
-                                <select name="unidad" id="unidadArticulo" class="form-control">
+                                <select name="unidadArticulo" id="unidadArticulo" class="form-control">
                                     <?php
                                     while ($row = sqlsrv_fetch_array($resultadoUnidad, SQLSRV_FETCH_ASSOC)) {
                                         echo '<option value="' . $row['idUnidad'] . '">' . $row['Nombre'] . '</option>';
@@ -192,7 +197,7 @@
                             
                     </div>
                         <div class="modal-footer">
-                            <input type="button" class="btn btn-success" value="Agregar" onclick="agregarMarca()">
+                            <input type="button" class="btn btn-success" value="Agregar" onclick="agregarArticulo()">
                         </div>
                     </div>
                 </form>
@@ -233,12 +238,5 @@
 
 
     <script src="js/datepicker.js"></script>
-    <script>
-    <?php foreach ($codbarra as $codigo) : ?>
-        JsBarcode("#barcode-<?php echo $codigo; ?>", "<?php echo $codigo; ?>", {
-            format: "CODE128",
-            displayValue: true
-        });
-    <?php endforeach; ?>
 </script>
 </body>

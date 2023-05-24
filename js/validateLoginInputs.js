@@ -660,3 +660,45 @@ function editarMarca(){
     }
   });
 }
+
+//FUNCIONES PARA LA PAGINA DE ARTICULO
+function agregarArticulo(){
+
+  let data = {
+      'nombreArticulo': $('#nombreArticulo').val(),
+      'existenciaArticulo': $('#existenciaArticulo').val(),
+      'fechaRegistroArticulo': $('#fechaRegistroArticulo').val(),
+      'oficioArticulo': $('#oficioArticulo').val(),
+      'marcaArticulo': $('#marcaArticulo').val(),
+      'materialArticulo': $('#materialArticulo').val(),
+      'unidadArticulo': $('#unidadArticulo').val()
+  }
+
+  $.ajax({
+      type: "POST",
+      url: "php/agregarArticulo.php",
+      data: data,
+      dataType: "json",
+      success: function(data) {
+          if(data.status == 1){
+              swal({
+                  title: "Éxito",
+                  text: data.msg,
+                  icon: "success"
+              }).then(function(){
+                  // Esta función se ejecuta cuando el usuario hace clic en "OK"
+                  $("#formAgregarMarca").trigger("reset");
+                  $("#modalAgregarMarca").modal("hide");
+              });
+              $('#dataTable').load(location.href + " #dataTable");
+          }
+          else{
+              swal({
+                  title: "Error",
+                  text: data.msg,
+                  icon: "error"
+              });
+          }
+      }
+  });
+}
