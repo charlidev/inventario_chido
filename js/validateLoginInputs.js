@@ -687,8 +687,8 @@ function agregarArticulo(){
                   icon: "success"
               }).then(function(){
                   // Esta función se ejecuta cuando el usuario hace clic en "OK"
-                  $("#formAgregarMarca").trigger("reset");
-                  $("#modalAgregarMarca").modal("hide");
+                  $("#formAgregarArticulo").trigger("reset");
+                  $("#modalAgregarArticulo").modal("hide");
               });
               $('#dataTable').load(location.href + " #dataTable");
           }
@@ -701,4 +701,30 @@ function agregarArticulo(){
           }
       }
   });
+}
+
+function mostrarArticulo(idArticulo){
+  alert(idArticulo);
+  let data = {'id': idArticulo};
+  $.ajax({
+    type: "POST",
+    url: "php/mostrarArticulo.php",
+    data: data,
+    dataType: "JSON",
+    success: function(arti){
+        $('#editaridArticuloE').val(arti.id);
+        $('#nombreArticuloE').val(arti.nombre);
+        $('#existenciaArticuloE').val(arti.existencia);
+        $('#fechaRegistroArticuloE').val(arti.fechaRegistro);
+        $('#oficioArticuloE').val(arti.oficioEntra);
+        // Actualizar el campo de selección de marca
+        $('#marcaArticuloE').html('<option value="' + arti.marca + '">' + arti.marca + '</option>');
+
+        // Actualizar el campo de selección de material
+        $('#materialArticuloE').html('<option value="' + arti.material + '">' + arti.material + '</option>');
+
+        // Actualizar el campo de selección de unidad
+        $('#unidadArticuloE').html('<option value="' + arti.unidad + '">' + arti.unidad + '</option>');
+    }
+});
 }

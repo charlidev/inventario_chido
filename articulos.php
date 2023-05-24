@@ -112,7 +112,7 @@
     <!-- End of Page Wrapper -->
 
 
-    <!-- Codigo del modal de AGREGAR MARCA-->
+    <!-- Codigo del modal de AGREGAR ARTICULO-->
     <div class="modal fade" id="modalAgregarArticulo" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -204,7 +204,7 @@
         </div>
     </div>
 
-    <!-- Codigo del modal de EDITAR MARCA-->
+    <!-- Codigo del modal de EDITAR ARTICULO-->
     <div class="modal fade" id="modalEditarArticulo" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -218,15 +218,47 @@
                 <form method="POST" id="formEditarArticulo">
                     <div>
 
-                        <input type="text" name="editaridUnidad" id="editaridMarca" class="form-control d-none " readonly>
+                        <input type="text" name="editaridArticuloE" id="editaridArticuloE" class="form-control d-none " readonly>
                         <br>
 
-                        <label for="Nombre">Nombre</label>
-                        <input type="text" name="editarUnidad" id="editarMarca" class="form-control">
+                        <label for="nombreArticuloE">Nombre</label>
+                        <input type="text" name="nombreArticuloE" id="nombreArticuloE" class="form-control" autocomplete="off">
                         <br>
 
+                        <label for="existenciaArticuloE">Existencia</label>
+                        <input type="text" name="existenciaArticuloE" id="existenciaArticuloE" class="form-control" autocomplete="off">
+                        <br>
+
+                        <label for="fechaRegistroArticuloE">Fecha de Registro</label>
+                        <input type="text" name="fechaRegistroArticuloE" id="fechaRegistroArticuloE" class="form-control" autocomplete="off">
+                        <br>
+
+                        <label for="oficioArticuloE">Oficio</label>
+                        <input type="text" name="oficioArticuloE" id="oficioArticuloE" class="form-control" autocomplete="off">
+                        <br>
+
+
+                        <label for="marcaArticuloE">Marca</label>
+                        <!-- Generar opciones para la lista desplegable de Material -->
+                        <select name="marcaArticuloE" id="marcaArticuloE" class="form-control">
+                                
+                        </select>
+                        <br>
+
+                        <label for="materialArticuloE">Material</label>
+                        <!-- Generar opciones para la lista desplegable de Material -->
+                        <select name="materialArticuloE" id="materialArticuloE" class="form-control">
+                                
+                        </select>
+                        <br>
+                                
+                        <label for="unidadArticuloE">Unidad</label>
+                        <!-- Generar opciones para la lista desplegable de Unidad -->
+                        <select name="unidadArticuloE" id="unidadArticuloE" class="form-control">
+                                
+                        </select>
+                        <br>
                     </div>
-                    
                 </form>
             </div>
                 <div class="modal-footer">

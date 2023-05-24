@@ -1,5 +1,6 @@
 // Obtener el elemento de entrada de fecha
 var fechaRegistroInput = document.getElementById('fechaRegistroArticulo');
+var fechaRegistroInput = document.getElementById('fechaRegistroArticuloE');
 
 // Obtener la fecha actual
 var fechaActual = new Date();
@@ -16,4 +17,5 @@ fechaRegistroInput.value = fechaActualFormateada;
 // Agregar un selector de fecha utilizando la librería datepicker (requiere jQuery)
 $(document).ready(function() {
 $('#fechaRegistroArticulo').datepicker();
+$('#fechaRegistroArticuloE').datepicker();
 });

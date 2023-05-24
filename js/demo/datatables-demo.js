@@ -2,7 +2,7 @@
 $(document).ready(function() {
   $('#dataTable').DataTable({
     // aquí se modifica la cantidad de registros a mostrar en la tabla
-    lengthMenu: [10, 20, 30, 40, 50],
+    lengthMenu: [4, 8, 12, 16, 18],
     columnDefs: [
       // aquí se define por cuales columnas NO hace la busqueda
       {searchable:false, target:[1,2]}
