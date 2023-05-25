@@ -728,10 +728,10 @@ function mostrarArticulo(idArticulo) {
           // Actualizar el campo de selección de marca
           let opcionesMarca = '';
           for (let i = 0; i < marcas.length; i++) {
-            if (marcas[i] === arti.marca) {
-              opcionesMarca += '<option value="' + marcas[i] + '" selected>' + marcas[i] + '</option>';
+            if (marcas[i].id === arti.idMarca) {
+              opcionesMarca += '<option value="' + marcas[i].id + '" selected>' + marcas[i].nombre + '</option>';
             } else {
-              opcionesMarca += '<option value="' + marcas[i] + '">' + marcas[i] + '</option>';
+              opcionesMarca += '<option value="' + marcas[i].id + '">' + marcas[i].nombre + '</option>';
             }
           }
           $('#marcaArticuloE').html(opcionesMarca);
@@ -744,10 +744,10 @@ function mostrarArticulo(idArticulo) {
             success: function (materiales) {
               let opcionesMaterial = '';
               for (let i = 0; i < materiales.length; i++) {
-                if (materiales[i] === arti.material) {
-                  opcionesMaterial += '<option value="' + materiales[i] + '" selected>' + materiales[i] + '</option>';
+                if (materiales[i].id === arti.idMaterial) {
+                  opcionesMaterial += '<option value="' + materiales[i].id + '" selected>' + materiales[i].nombre + '</option>';
                 } else {
-                  opcionesMaterial += '<option value="' + materiales[i] + '">' + materiales[i] + '</option>';
+                  opcionesMaterial += '<option value="' + materiales[i].id + '">' + materiales[i].nombre + '</option>';
                 }
               }
               $('#materialArticuloE').html(opcionesMaterial);
@@ -762,10 +762,10 @@ function mostrarArticulo(idArticulo) {
             success: function (unidades) {
               let opcionesUnidad = '';
               for (let i = 0; i < unidades.length; i++) {
-                if (unidades[i] === arti.unidad) {
-                  opcionesUnidad += '<option value="' + unidades[i] + '" selected>' + unidades[i] + '</option>';
+                if (unidades[i].id === arti.idUnidad) {
+                  opcionesUnidad += '<option value="' + unidades[i].id + '" selected>' + unidades[i].nombre + '</option>';
                 } else {
-                  opcionesUnidad += '<option value="' + unidades[i] + '">' + unidades[i] + '</option>';
+                  opcionesUnidad += '<option value="' + unidades[i].id + '">' + unidades[i].nombre + '</option>';
                 }
               }
               $('#unidadArticuloE').html(opcionesUnidad);
@@ -774,5 +774,47 @@ function mostrarArticulo(idArticulo) {
         }
       });
     }
+  });
+}
+
+function editarArticulo(){
+
+  let data = {
+    'idArticulo': $('#editaridArticuloE').val(),
+    'nombreArticulo': $('#nombreArticuloE').val(),
+    'existenciaArticulo': $('#existenciaArticuloE').val(),
+    'fechaRegistroArticulo': $('#fechaRegistroArticuloE').val(),
+    'oficioArticulo': $('#oficioArticuloE').val(),
+    'marcaArticulo': $('#marcaArticuloE').val(),
+    'materialArticulo': $('#materialArticuloE').val(),
+    'unidadArticulo': $('#unidadArticuloE').val()
+  }
+  console.log(data)
+  $.ajax({
+      type: "POST",
+      url: "php/actualizarArticulo.php",
+      data: data,
+      dataType: "json",
+      success: function(data) {
+          if(data.status == 1){
+              swal({
+                  title: "Éxito",
+                  text: data.msg,
+                  icon: "success"
+              }).then(function(){
+                  // Esta función se ejecuta cuando el usuario hace clic en "OK"
+                  $("#formEditarArticulo").trigger("reset");
+                  $("#modalEditarArticulo").modal("hide");
+              });
+              $('#dataTable').load(location.href + " #dataTable");
+          }
+          else{
+              swal({
+                  title: "Error",
+                  text: data.msg,
+                  icon: "error"
+              });
+          }
+      }
   });
 }

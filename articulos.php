@@ -262,7 +262,7 @@
                 </form>
             </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-success" value="Guardar" onclick="editarMarca()">Guardar</button>
+                    <button type="button" class="btn btn-success" value="Guardar" onclick="editarArticulo()">Guardar</button>
                 </div>
             </div>
         </div>
