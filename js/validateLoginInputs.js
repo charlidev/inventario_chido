@@ -703,28 +703,76 @@ function agregarArticulo(){
   });
 }
 
-function mostrarArticulo(idArticulo){
-  alert(idArticulo);
-  let data = {'id': idArticulo};
+function mostrarArticulo(idArticulo) {
+  let data = { 'id': idArticulo };
+
+  // Obtener lista de marcas
   $.ajax({
     type: "POST",
-    url: "php/mostrarArticulo.php",
-    data: data,
+    url: "php/obtenerMarcas.php",
     dataType: "JSON",
-    success: function(arti){
-        $('#editaridArticuloE').val(arti.id);
-        $('#nombreArticuloE').val(arti.nombre);
-        $('#existenciaArticuloE').val(arti.existencia);
-        $('#fechaRegistroArticuloE').val(arti.fechaRegistro);
-        $('#oficioArticuloE').val(arti.oficioEntra);
-        // Actualizar el campo de selección de marca
-        $('#marcaArticuloE').html('<option value="' + arti.marca + '">' + arti.marca + '</option>');
+    success: function (marcas) {
+      // Realizar la solicitud para obtener el artículo
+      $.ajax({
+        type: "POST",
+        url: "php/mostrarArticulo.php",
+        data: data,
+        dataType: "JSON",
+        success: function (arti) {
+          $('#editaridArticuloE').val(arti.id);
+          $('#nombreArticuloE').val(arti.nombre);
+          $('#existenciaArticuloE').val(arti.existencia);
+          $('#fechaRegistroArticuloE').val(arti.fechaRegistro);
+          $('#oficioArticuloE').val(arti.oficioEntra);
 
-        // Actualizar el campo de selección de material
-        $('#materialArticuloE').html('<option value="' + arti.material + '">' + arti.material + '</option>');
+          // Actualizar el campo de selección de marca
+          let opcionesMarca = '';
+          for (let i = 0; i < marcas.length; i++) {
+            if (marcas[i] === arti.marca) {
+              opcionesMarca += '<option value="' + marcas[i] + '" selected>' + marcas[i] + '</option>';
+            } else {
+              opcionesMarca += '<option value="' + marcas[i] + '">' + marcas[i] + '</option>';
+            }
+          }
+          $('#marcaArticuloE').html(opcionesMarca);
 
-        // Actualizar el campo de selección de unidad
-        $('#unidadArticuloE').html('<option value="' + arti.unidad + '">' + arti.unidad + '</option>');
+          // Actualizar el campo de selección de material
+          $.ajax({
+            type: "POST",
+            url: "php/obtenerMateriales.php",
+            dataType: "JSON",
+            success: function (materiales) {
+              let opcionesMaterial = '';
+              for (let i = 0; i < materiales.length; i++) {
+                if (materiales[i] === arti.material) {
+                  opcionesMaterial += '<option value="' + materiales[i] + '" selected>' + materiales[i] + '</option>';
+                } else {
+                  opcionesMaterial += '<option value="' + materiales[i] + '">' + materiales[i] + '</option>';
+                }
+              }
+              $('#materialArticuloE').html(opcionesMaterial);
+            }
+          });
+
+          // Actualizar el campo de selección de unidad
+          $.ajax({
+            type: "POST",
+            url: "php/obtenerUnidades.php",
+            dataType: "JSON",
+            success: function (unidades) {
+              let opcionesUnidad = '';
+              for (let i = 0; i < unidades.length; i++) {
+                if (unidades[i] === arti.unidad) {
+                  opcionesUnidad += '<option value="' + unidades[i] + '" selected>' + unidades[i] + '</option>';
+                } else {
+                  opcionesUnidad += '<option value="' + unidades[i] + '">' + unidades[i] + '</option>';
+                }
+              }
+              $('#unidadArticuloE').html(opcionesUnidad);
+            }
+          });
+        }
+      });
     }
-});
+  });
 }
