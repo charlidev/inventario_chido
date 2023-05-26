@@ -703,6 +703,46 @@ function agregarArticulo(){
   });
 }
 
+function eliminarArticulo(idArticulo) {
+
+  let data = {'id': idArticulo};
+  swal({
+    title: "¿Estás seguro?",
+    text: "Una vez eliminado, no podrás recuperar este registro.",
+    icon: "warning",
+    buttons: true,
+    dangerMode: true,
+  }).then((willDelete) => {
+    if (willDelete) {
+      // Si el usuario confirma la eliminación, enviar la petición AJAX
+      $.ajax({
+        type: "POST",
+        url: "php/eliminarArticulo.php",
+        data: data,
+        dataType: "json",
+        success: function(data) {
+          // Si la eliminación fue exitosa, mostrar una alerta de éxito
+          if(data.status == 1){
+            swal({
+              title: "Éxito.",
+              text: data.msg,
+              icon: "success"
+            });
+            $('#dataTable').load(location.href + " #dataTable");
+          }
+          else{
+            swal({
+              title: "Error.",
+              text: data.msg,
+              icon: "error"
+            });
+          }
+        }
+      });
+    }
+  });
+}
+
 function mostrarArticulo(idArticulo) {
   let data = { 'id': idArticulo };
 

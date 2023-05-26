@@ -64,7 +64,8 @@
                                                     FROM tblArticulo a
                                                     INNER JOIN tblMarca m ON a.idMarca = m.idMarca
                                                     INNER JOIN tblMaterial ma ON a.idMaterial = ma.idMaterial
-                                                    INNER JOIN tblUnidad u ON a.idUnidad = u.idUnidad";
+                                                    INNER JOIN tblUnidad u ON a.idUnidad = u.idUnidad
+                                                    WHERE a.eliminado = 0";
                                         $resultado = sqlsrv_query($conexion, $consulta);
                                         while ($row = sqlsrv_fetch_array($resultado, SQLSRV_FETCH_ASSOC)) {
                                         ?>
