@@ -7,7 +7,7 @@
 
 .wrapper{
     background: #ececec;
-    /* background-image: url(../imgs/abasolo.png); */
+    background-image: url(../imgs/edificio-uaeh.jpg);
     background-repeat: no-repeat;
     background-position: left;
     position: relative;
@@ -26,7 +26,7 @@
     width: 900px;
     height: 550px;
     border-radius: 10px;
-    background: #fff;
+    background-color: rgba(255, 255, 255, 0.7);
     box-shadow: 5px 5px 10px 1px rgba(0,0,0,0.2);
 }
 .side-image{
@@ -124,6 +124,11 @@ i{
     color: #fff;
 }
 
+.registrar a{
+    color: #BA0F16;
+    font-weight: bold;
+}
+
 @media only screen and (max-width: 768px){
     .side-image{
         border-radius: 10px 10px 0 0;
@@ -150,3 +155,4 @@ i{
         background: #ececec;
     }
 }
+

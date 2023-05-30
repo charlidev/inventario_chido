@@ -37,8 +37,38 @@
                                 <div class="input-field">
                                     <button type="button" class="submit" name="btnIngresar" onclick="login()">Iniciar Sesión</button>
                                 </div>
+                                <br>
+                                
+                                <div class="input-field">
+                                    <button type="button" class=" submit" data-bs-toggle="modal" data-bs-target="#registerModal">Regístrate</button>
+                                </div>
                             </div>
                         </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="registerModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="registerModalLabel">Registro</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form class="register-form">
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Nombre</label>
+                            <input type="text" class="form-control" id="name" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Contraseña</label>
+                            <input type="password" class="form-control" id="password" required>
+                        </div>
+                        <button type="submit" class="btn submit">Registrarse</button>
+                    </form>
                 </div>
             </div>
         </div>
